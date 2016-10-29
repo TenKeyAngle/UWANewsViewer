@@ -44,11 +44,10 @@ def SayHello(name):
 def create_db(db):
     try:
         vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
+        cl_username = vcap['credentials']['username']
+        cl_password = vcap['credentials']['password']
 
-        cl_username = vcap[0]['credentials']['username']
-        cl_password = vcap[0]['credentials']['password']
-
-        url         = vcap[0]['credentials']['url']
+        url         = vcap['credentials']['url']
         auth        = ( cl_username, cl_password )
 
     except:
