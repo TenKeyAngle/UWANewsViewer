@@ -40,6 +40,23 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
+@app.route('/createdb/<db>')
+def create_db(db):
+    try:
+        vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
+
+        cl_username = vcap[0]['credentials']['username']
+        cl_password = vcap[0]['credentials']['password']
+
+        url         = vcap[0]['credentials']['url']
+        auth        = ( cl_username, cl_password )
+
+    except:
+        return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
+
+    requests.put( url + '/' + db, auth=auth )
+    return 'Database %s created.' % db
+
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
