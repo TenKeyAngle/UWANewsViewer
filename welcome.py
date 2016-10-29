@@ -44,14 +44,17 @@ def SayHello(name):
 def create_db(db):
     try:
         vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
-        cl_username = vcap['credentials']['username']
-        cl_password = vcap['credentials']['password']
+    except:
+        return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
+    try:
+        cl_username = vcap[0]['credentials']['username']
+        cl_password = vcap[0]['credentials']['password']
 
-        url         = vcap['credentials']['url']
+        url         = vcap[0]['credentials']['url']
         auth        = ( cl_username, cl_password )
 
     except:
-        return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
+        return '2: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
 
     requests.put( url + '/' + db, auth=auth )
     return 'Database %s created.' % db
