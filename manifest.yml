@@ -1,0 +1,9 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: au-syd.mybluemix.net
+  name: '21331893'
+  host: '21331893'
+  disk_quota: 1024M
+  buildpack: python_buildpack
