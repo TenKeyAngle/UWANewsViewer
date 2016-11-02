@@ -39,7 +39,14 @@ def SayHello(name):
         'message': 'Hello ' + name
     }
     return jsonify(results=message)
-
+@app.route('/alchemy')
+def ConfirmConnection() {
+    try:
+        key = json.loads(os.environ("alchemyKey"));
+    except:
+        return "Does not work..."
+    return "Alchemy is connected!"
+}
 @app.route('/createdb/<db>')
 def create_db(db):
     try:
