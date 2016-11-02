@@ -42,7 +42,7 @@ def SayHello(name):
 @app.route('/alchemy')
 def ConfirmConnection():
     try:
-        key = json.loads(os.environ("alchemyKey"));
+        key = os.environ.get('alchemyKey');
     except:
         return "Does not work..."
     return "Alchemy is connected!"
