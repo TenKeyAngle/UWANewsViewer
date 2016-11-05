@@ -49,7 +49,9 @@ def ConfirmConnection():
 @app.route('/createdb/<db>')
 def create_db(db):
     try:
-        vcap = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQLDB'][0]
+        if 'VCAP_SERVICES' in os.environ:
+             db2info = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQL'][0]
+             vcap = db2info["credentials"]
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     try:
