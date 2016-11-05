@@ -51,7 +51,7 @@ def ConfirmConnection():
 def create_db(db):
     try:
         if 'VCAP_SERVICES' in os.environ:
-             db2info = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQLDB']
+             db2info = json.loads(os.environ.get('VCAP_SERVICES'))['cloudantNoSQLDB']
         else:
             return "0: help"
     except:
