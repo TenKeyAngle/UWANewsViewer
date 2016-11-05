@@ -50,13 +50,13 @@ def ConfirmConnection():
 def create_db(db):
     try:
         if 'VCAP_SERVICES' in os.environ:
-             db2info = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQL'][0]
-             vcap = db2info['credentials']
+             db2info = json.loads(os.environ['VCAP_SERVICES'])
         else:
             return "0: help"
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     try:
+        vcap = db2info['credentials']['cloudantNoSQL'][0]
         cl_username = vcap['username']
         cl_password = vcap['password']
 
