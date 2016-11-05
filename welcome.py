@@ -52,9 +52,8 @@ def create_db(db):
     try:
         if 'VCAP_SERVICES' in os.environ:
              db2info = json.loads(os.environ.get('VCAP_SERVICES'))['cloudantNoSQLDB'][0]
-    except:
-        return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
-    try:
+        else:
+            return 'Could not find VCAP_SERVICES.'
         vcap = db2info['credentials']
         cl_username = vcap['username']
         cl_password = vcap['password']
@@ -63,7 +62,7 @@ def create_db(db):
         auth        = ( cl_username, cl_password )
 
     except:
-        return '2: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
+        return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
 
     requests.put( url + '/' + db, auth=auth )
     return 'Database %s created.' % db
