@@ -51,14 +51,14 @@ def create_db(db):
     try:
         if 'VCAP_SERVICES' in os.environ:
              db2info = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQL'][0]
-             vcap = db2info["credentials"]
+             vcap = db2info['credentials']
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     try:
-        cl_username = vcap['credentials']['username']
-        cl_password = vcap['credentials']['password']
+        cl_username = vcap['username']
+        cl_password = vcap['password']
 
-        url         = vcap['credentials']['url']
+        url         = vcap['url']
         auth        = ( cl_username, cl_password )
 
     except:
