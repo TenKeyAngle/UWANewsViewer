@@ -54,8 +54,6 @@ def create_db(db):
              db2info = json.loads(os.environ.get('VCAP_SERVICES'))['cloudantNoSQLDB'][0]
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
-    else:
-    return "4"
     try:
         vcap = db2info['credentials']
         cl_username = vcap['username']
