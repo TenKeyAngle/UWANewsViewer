@@ -42,8 +42,9 @@ def SayHello(name):
 
 @app.route('/createdb/<db>')
 def create_db(db):
+    if (VCA)
     try:
-        vcap = json.loads(os.environ("VCAP_SERVICES"))['cloudantNoSQLDB']
+        vcap = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQLDB'][0]
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     try:
