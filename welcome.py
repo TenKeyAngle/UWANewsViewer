@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os, json
+import os
+import json
+import requests
 from flask import Flask, jsonify
 
 app = Flask(__name__)
