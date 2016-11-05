@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os, json
+import os, json, cloudant
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -57,10 +57,24 @@ def create_db(db):
     vcap = db2info['credentials']
     cl_username = vcap['username']
     cl_password = vcap['password']
-    url         = vcap['url']
-    auth        = ( cl_username, cl_password )
+    #url         = vcap['url']
+    # auth        = ( cl_username, cl_password )
+
+   # in this case, https://garbados.cloudant.com
+    account = cloudant.Account(cl_username)
+
+    # login, so we can make changes
+    login = account.login(cl_username, cl_password)
+    # assert login.status_code == 200
+
+    # create a database object
+    db = account.database('test')
+
+    # now, create the database on the server
+    response = db.put()
+    print response.json()
    # requests.put( url + '/' + db, auth=auth )
-    return 'Database %s created.'
+   # return 'Database %s created.'
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
