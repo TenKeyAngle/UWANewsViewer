@@ -56,7 +56,9 @@ def create_db(db):
             return "0: help"
     except:
         return '1: A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
-    return "3..."
+    else:
+        return "3..."
+    return "4"
     try:
         vcap = db2info['credentials']
         cl_username = vcap['username']
