@@ -39,10 +39,15 @@ def SayHello(name):
         'message': 'Hello ' + name
     }
     return jsonify(results=message)
-
+@app.route('/alchemy')
+def ConfirmConnection():
+    try:
+        key = os.environ.get('alchemyKey');
+    except:
+        return "Does not work..."
+    return "Alchemy is connected!"
 @app.route('/createdb/<db>')
 def create_db(db):
-    if (VCA)
     try:
         vcap = json.loads(os.environ['VCAP_SERVICES'])['cloudantNoSQLDB'][0]
     except:
