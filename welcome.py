@@ -50,10 +50,10 @@ def ConfirmConnection():
 @app.route('/createdb/<db>')
 def create_db(db):
     try:
-        if 'VCAP_SERVICES' in os.environ:
+      #  if 'VCAP_SERVICES' in os.environ:
              db2info = json.loads(os.environ.get('VCAP_SERVICES'))['cloudantNoSQLDB'][0]
-        else:
-            return 'Could not find VCAP_SERVICES.'
+       # else:
+       #     return 'Could not find VCAP_SERVICES.'
         vcap = db2info['credentials']
         cl_username = vcap['username']
         cl_password = vcap['password']
