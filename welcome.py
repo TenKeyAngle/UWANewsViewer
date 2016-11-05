@@ -47,20 +47,20 @@ def ConfirmConnection():
         return "Does not work..."
     return "Alchemy is connected!"
 
-@app.route('/createdb/<db>')
+@app.route('/createdb')
 def create_db(db):
    # try:
       #  if 'VCAP_SERVICES' in os.environ:
+   #except:
+   #   return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     db2info = json.loads(os.environ.get('VCAP_SERVICES'))['cloudantNoSQLDB'][0]
-    #except:
-     #   return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
     vcap = db2info['credentials']
     cl_username = vcap['username']
     cl_password = vcap['password']
     url         = vcap['url']
     auth        = ( cl_username, cl_password )
-    requests.put( url + '/' + db, auth=auth )
-    return 'Database %s created.' % db
+   # requests.put( url + '/' + db, auth=auth )
+    return 'Database %s created.'
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
