@@ -48,7 +48,7 @@ def SayHello(name):
 @app.route('/alchemy')
 def ConfirmConnection():
     key = json.loads(os.getenv('alchemyKey'))
-    return key;
+    return key
    # try:
 
         #alchemy = AlchemyLanguageV1(api_key=key)
