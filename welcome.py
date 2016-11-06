@@ -21,6 +21,7 @@ import requests
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
 from cloudant import cloudant
+from cloudant.client import Cloudant
 from cloudant.document import Document
 
 app = Flask(__name__)
@@ -74,12 +75,12 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
-        client = cloudant(cl_username, cl_password, account=url)
+        client = Cloudant(cl_username, cl_password, account=url)
     except:
         #template = "An exception of type {0} occured. Arguments:\n{1!r}"
         #message = template.format(type(ex).__name__, ex.args)
         return "-1"
-    with cloudant(cl_username, cl_password, account=url) as client:
+    with Cloudant(cl_username, cl_password, account=url) as client:
         return "0"
         try:
             session = client.session()
