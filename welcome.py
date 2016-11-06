@@ -49,7 +49,8 @@ def SayHello(name):
 def ConfirmConnection():
     try:
         key = json.loads(os.environ['alchemyKey'])
-        alchemy = AlchemyLanguageV1(api_key=key)
+        return key;
+        #alchemy = AlchemyLanguageV1(api_key=key)
     except:
         return "Does not work..."
     return "Alchemy is connected!"
