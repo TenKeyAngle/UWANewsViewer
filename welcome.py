@@ -81,7 +81,7 @@ def testDB():
         #for document in my_database:
         #    list.append(document)
         #return jsonify(results=list)
-        return str
+        return jsonify(results=str)
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
