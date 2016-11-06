@@ -49,7 +49,7 @@ def SayHello(name):
 def ConfirmConnection():
     try:
         key = os.environ.get('alchemyKey');
-        alchemy = AlchemyLanguageV1(api_key=key)
+        alchemy = AlchemyLanguageV1(api_key=os.environ.get('alchemyKey'))
     except:
         return "Does not work..."
     return "Alchemy is connected!"
