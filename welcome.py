@@ -18,10 +18,10 @@
 import os
 import json
 import requests
-import cloudant
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
-from cloudant import Cloudant
+from cloudant import cloudant
+from cloudant.document import Document
 
 app = Flask(__name__)
 
@@ -32,10 +32,6 @@ cl_username = vcap[0]['credentials']['username']
 cl_password = vcap[0]['credentials']['password']
 url         = vcap[0]['credentials']['url']
 auth        = ( cl_username, cl_password )
-
-client = Cloudant(cl_username, cl_password, account=url)
-client.connect()
-
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
@@ -77,8 +73,13 @@ def create_db(db):
 
 @app.route('/testdb')
 def testDB():
-    str='Databases: {0}'.format(client.all_dbs())
-    return str
+    with cloudant(cl_username, cl_password, account=url) as client:
+        session = client.session()
+        my_database = client['x']
+        list = ['0']
+        for document in my_database:
+            list.append(document)
+        return jsonify(results=list)
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
