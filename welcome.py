@@ -87,6 +87,7 @@ def testDB():
         #for document in my_database:
         #    list.append(document)
         #return jsonify(results=list)
+        str = 'Username: {0}'.format(session['userCtx']['name'])
         return jsonify(results=str)
 
 port = os.getenv('PORT', '5000')
