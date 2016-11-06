@@ -15,7 +15,7 @@
 import os
 import json
 import requests
-from watson_developer_cloud import AlchemyLanguageV1
+# from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
 
 app = Flask(__name__)
