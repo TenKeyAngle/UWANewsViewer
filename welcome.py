@@ -24,6 +24,16 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
+
+cl_username = vcap[0]['credentials']['username']
+cl_password = vcap[0]['credentials']['password']
+
+url         = vcap[0]['credentials']['url']
+auth        = ( cl_username, cl_password )
+
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
@@ -49,27 +59,12 @@ def SayHello(name):
 @app.route('/alchemy')
 def ConfirmConnection():
     key = os.environ.get('alchemyKey')
-    try:
-        alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
-    except:
-        return "Does not work..."
+
     return json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.', targets=['cats', 'dogs'],
                                                  language='english'), indent=2)
 
 @app.route('/createdb/<db>')
 def create_db(db):
-    try:
-        vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
-
-        cl_username = vcap[0]['credentials']['username']
-        cl_password = vcap[0]['credentials']['password']
-
-        url         = vcap[0]['credentials']['url']
-        auth        = ( cl_username, cl_password )
-
-    except:
-        return 'A Cloudant service is not bound to the application.  Please bind a Cloudant service and try again.'
-
     requests.put( url + '/' + db, auth=auth )
     return 'Database %s created.' % db
 
