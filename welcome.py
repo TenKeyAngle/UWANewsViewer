@@ -29,10 +29,11 @@ app = Flask(__name__)
 alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
-cl_username = vcap[0]['credentials']['username']
-cl_password = vcap[0]['credentials']['password']
-url         = vcap[0]['credentials']['url']
+cl_username = jsonify(vcap[0]['credentials']['username'])
+cl_password = jsonify(vcap[0]['credentials']['password'])
+url         = jsonify(vcap[0]['credentials']['url'])
 auth        = ( cl_username, cl_password )
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
