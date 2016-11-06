@@ -84,10 +84,14 @@ def testDB():
         return message
     try:
         session = client.session()
-    except:
-        return "1"
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "1: " + message
     try:
-        str = 'Username: {0}'.format(session['userCtx']['name'])
+        my_database = client['x']
+        if my_database.exists():
+            return 'SUCCESS!'
     except:
         return "2"
     # my_database = client['x']
@@ -95,7 +99,7 @@ def testDB():
     #for document in my_database:
     #    list.append(document)
     #return jsonify(results=list)
-    str = 'Username: {0}'.format(session['userCtx']['name'])
+
     return jsonify(results=str)
 
 port = os.getenv('PORT', '5000')
