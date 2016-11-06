@@ -48,8 +48,8 @@ def SayHello(name):
 @app.route('/alchemy')
 def ConfirmConnection():
     try:
-        key = os.environ.get('alchemyKey');
-        alchemy = AlchemyLanguageV1(api_key=key)
+        key = json.loads(os.environ['alchemyKey'])
+        alchemy = AlchemyLanguageV1(api_key=key[0])
     except:
         return "Does not work..."
     return "Alchemy is connected!"
