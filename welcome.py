@@ -76,30 +76,27 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
-        print(cl_username, cl_password, url)
         client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
                           'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0', url='v')
-        return cl_username + " " + cl_password + " " + url
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return message
-    with Cloudant(cl_username, cl_password, account=url) as client:
-        try:
-            session = client.session()
-        except:
-            return "1"
-        try:
-            str = 'Username: {0}'.format(session['userCtx']['name'])
-        except:
-            return "2"
-        # my_database = client['x']
-        #list = ['0']
-        #for document in my_database:
-        #    list.append(document)
-        #return jsonify(results=list)
+    try:
+        session = client.session()
+    except:
+        return "1"
+    try:
         str = 'Username: {0}'.format(session['userCtx']['name'])
-        return jsonify(results=str)
+    except:
+        return "2"
+    # my_database = client['x']
+    #list = ['0']
+    #for document in my_database:
+    #    list.append(document)
+    #return jsonify(results=list)
+    str = 'Username: {0}'.format(session['userCtx']['name'])
+    return jsonify(results=str)
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
