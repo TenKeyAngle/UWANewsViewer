@@ -74,8 +74,14 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     with cloudant(cl_username, cl_password, account=url) as client:
-        session = client.session()
-        str = 'Username: {0}'.format(session['userCtx']['name'])
+        try:
+            session = client.session()
+        except:
+            return "1"
+        try:
+            str = 'Username: {0}'.format(session['userCtx']['name'])
+        except:
+            return "2"
         # my_database = client['x']
         #list = ['0']
         #for document in my_database:
