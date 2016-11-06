@@ -99,8 +99,8 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = '{0}/{1}'.format('https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com', 'x/_design/des/_view/new-view?limit=200&reduce=false')
-        params = {'include_docs': 'true'}
+        end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view'
+        params = {'include_docs': 'false'}
         response = client.r_session.get(end_point, params=params)
         return response.json()
     except Exception as ex:
