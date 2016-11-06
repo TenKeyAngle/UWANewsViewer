@@ -47,8 +47,8 @@ def SayHello(name):
     return jsonify(results=message)
 @app.route('/alchemy')
 def ConfirmConnection():
-    key = json.loads(os.getenv('alchemyKey'))
-    return jsonify(results=key)
+    key = json.loads(os.getenv("alchemyKey"))
+    return json.dumps(key)
    # try:
 
         #alchemy = AlchemyLanguageV1(api_key=key)
