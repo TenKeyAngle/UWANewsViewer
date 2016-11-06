@@ -29,9 +29,9 @@ app = Flask(__name__)
 alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
-cl_username = jsonify(vcap[0]['credentials']['username'])
-cl_password = jsonify(vcap[0]['credentials']['password'])
-url         = jsonify(vcap[0]['credentials']['url'])
+cl_username = vcap[0]['credentials']['username']
+cl_password = vcap[0]['credentials']['password']
+url         = vcap[0]['credentials']['url']
 auth        = ( cl_username, cl_password )
 
 @app.route('/')
@@ -76,6 +76,7 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
+        print(cl_username, cl_password, url)
         client = Cloudant(cl_username, cl_password, url=url)
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
