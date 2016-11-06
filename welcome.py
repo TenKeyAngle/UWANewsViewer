@@ -75,14 +75,12 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
-        return "-2"
-        client = Cloudant(cl_username, cl_password, account=url)
+        client = Cloudant(cl_username, cl_password, url=url)
     except:
-        #template = "An exception of type {0} occured. Arguments:\n{1!r}"
-        #message = template.format(type(ex).__name__, ex.args)
-        return "-1"
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return message
     with Cloudant(cl_username, cl_password, account=url) as client:
-        return "0"
         try:
             session = client.session()
         except:
