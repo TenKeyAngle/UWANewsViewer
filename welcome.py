@@ -21,7 +21,7 @@ import requests
 import cloudant
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
-from cloudant.account import Cloudant
+from cloudant import Cloudant
 
 app = Flask(__name__)
 
