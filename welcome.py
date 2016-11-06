@@ -15,6 +15,7 @@
 import os
 import json
 import requests
+from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -45,6 +46,7 @@ def SayHello(name):
 def ConfirmConnection():
     try:
         key = os.environ.get('alchemyKey');
+        alchemy = AlchemyLanguageV1(api_key=key)
     except:
         return "Does not work..."
     return "Alchemy is connected!"
