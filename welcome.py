@@ -77,7 +77,7 @@ def create_db(db):
 def testDB():
     try:
         client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
-                          'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0', url='v')
+                          'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0', url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
         session = client.session()
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
