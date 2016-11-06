@@ -102,6 +102,10 @@ def testDB():
         end_point = '{0}/{1}'.format(client.cloudant_url, 'x/_design/des/_view/new-view?limit=200&reduce=false')
         response = client.r_session.get(end_point, params=params)
         return response.json()
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "3: " + message
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
