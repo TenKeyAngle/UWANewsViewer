@@ -4,10 +4,12 @@ from watson_developer_cloud import AlchemyLanguageV1
 
 alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 
-url = 'https://developer.ibm.com/watson/blog/2015/11/03/price-reduction-for-watson-personality-insights/'
-
-print(json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.',
-                                                     targets=['cats', 'dogs'], language='english'), indent=2))
+#url = 'https://developer.ibm.com/watson/blog/2015/11/03/price-reduction-for-watson-personality-insights/'
+#url = 'http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier
+url = 'http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue-identified-first-time'
+# -previously-thought'
+#print(json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.',
+#                                                     targets=['cats', 'dogs'], language='english'), indent=2))
 # print(json.dumps(alchemy_language.targeted_emotion(text='I love apples. I hate bananas',
 #                                                    targets=['apples', 'bananas'], language='english'), indent=2))
 
@@ -33,4 +35,4 @@ print(json.dumps(alchemy.combined(url=url, extract=combined_operations), indent=
 
 # Get sentiment and emotion information results for detected entities/keywords:
 print(json.dumps(alchemy.entities(url=url, sentiment=True, emotion=True), indent=2))
-print(json.dumps(alchemy.keywords(max_items=5, url=url, sentiment=True, emotion=True), indent=2))
+#print(json.dumps(alchemy.keywords(max_items=5, url=url, sentiment=True, emotion=True), indent=2))

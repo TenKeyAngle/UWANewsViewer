@@ -18,9 +18,10 @@
 import os
 import json
 import requests
+import cloudant
 from watson_developer_cloud import AlchemyLanguageV1
-# from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
+from cloudant.account import Cloudant
 
 app = Flask(__name__)
 
@@ -29,10 +30,11 @@ vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
 cl_username = vcap[0]['credentials']['username']
 cl_password = vcap[0]['credentials']['password']
-
 url         = vcap[0]['credentials']['url']
 auth        = ( cl_username, cl_password )
 
+client = Cloudant(cl_username, cl_password, account=url)
+client.connect()
 
 @app.route('/')
 def Welcome():
@@ -56,17 +58,27 @@ def SayHello(name):
         'message': 'Hello ' + name
     }
     return jsonify(results=message)
-@app.route('/alchemy')
+
+@app.route('/alchemytest')
 def ConfirmConnection():
     key = os.environ.get('alchemyKey')
-
     return json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.', targets=['cats', 'dogs'],
                                                  language='english'), indent=2)
+@app.route('/alchemy')
+def AnalyzeDoc():
+    txt='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue-identified-first-time'
+    combined_operations = ['page-image', 'entity', 'keyword', 'title', 'author', 'taxonomy', 'concept', 'doc-emotion']
+    return json.dumps(alchemy.combined(url=txt, extract=combined_operations), indent=2)
 
 @app.route('/createdb/<db>')
 def create_db(db):
     requests.put( url + '/' + db, auth=auth )
     return 'Database %s created.' % db
+
+@app.route('/testdb')
+def testDB():
+    str='Databases: {0}'.format(client.all_dbs())
+    return str
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":

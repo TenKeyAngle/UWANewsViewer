@@ -1,3 +1,4 @@
 Flask==0.10.1
 requests==2.7.0
 watson-developer-cloud==0.22.0
+cloudant==2.3.0
