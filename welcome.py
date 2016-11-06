@@ -53,7 +53,8 @@ def ConfirmConnection():
         alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
     except:
         return "Does not work..."
-    return "Alchemy is connected!"
+    return json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.', targets=['cats', 'dogs'],
+                                                 language='english'), indent=2)
 
 @app.route('/createdb/<db>')
 def create_db(db):
