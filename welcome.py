@@ -77,6 +77,7 @@ def create_db(db):
 def testDB():
     try:
         print(cl_username, cl_password, url)
+        return cl_username
         client = Cloudant(cl_username, cl_password, url=url)
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
