@@ -47,13 +47,12 @@ def SayHello(name):
     return jsonify(results=message)
 @app.route('/alchemy')
 def ConfirmConnection():
-    key = json.loads(os.getenv("alchemyKey"))
+    key = json.loads(os.getenv("alchemyKey"))[0]
     return key
-   # try:
-
-        #alchemy = AlchemyLanguageV1(api_key=key)
-  #  except:
-  #      return "Does not work..."
+    # try:
+         #alchemy = AlchemyLanguageV1(api_key=key)
+   #  except:
+   #      return "Does not work..."
    # return "Alchemy is connected!"
 
 @app.route('/createdb/<db>')
