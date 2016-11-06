@@ -73,8 +73,8 @@ def create_db(db):
 
 @app.route('/testdb')
 def testDB():
-    return "0"
     with cloudant(cl_username, cl_password, account=url) as client:
+        return "0"
         try:
             session = client.session()
         except:
