@@ -99,7 +99,7 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = '{0}/{1}'.format(client.cloudant_url, 'x/_design/des/_view/new-view?limit=200&reduce=false')
+        end_point = '{0}/{1}'.format(url, 'x/_design/des/_view/new-view?limit=200&reduce=false')
         response = client.r_session.get(end_point, params=params)
         return response.json()
     except Exception as ex:
