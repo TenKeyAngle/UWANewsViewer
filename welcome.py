@@ -48,12 +48,11 @@ def SayHello(name):
 @app.route('/alchemy')
 def ConfirmConnection():
     key = os.environ.get('alchemyKey')
-    return key
-    # try:
-         #alchemy = AlchemyLanguageV1(api_key=key)
-   #  except:
-   #      return "Does not work..."
-   # return "Alchemy is connected!"
+    try:
+        alchemy = AlchemyLanguageV1(api_key=key)
+    except:
+        return "Does not work..."
+    return "Alchemy is connected!"
 
 @app.route('/createdb/<db>')
 def create_db(db):
