@@ -75,11 +75,13 @@ def create_db(db):
 def testDB():
     with cloudant(cl_username, cl_password, account=url) as client:
         session = client.session()
-        my_database = client['x']
-        list = ['0']
-        for document in my_database:
-            list.append(document)
-        return jsonify(results=list)
+        str = 'Username: {0}'.format(session['userCtx']['name'])
+        # my_database = client['x']
+        #list = ['0']
+        #for document in my_database:
+        #    list.append(document)
+        #return jsonify(results=list)
+        return str
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
