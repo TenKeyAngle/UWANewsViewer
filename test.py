@@ -4,6 +4,8 @@ from cloudant.client import Cloudant
 from cloudant.document import Document
 from flask import jsonify
 import json
+import pygal
+from pygal.style import DarkSolarizedStyle
 import requests
 
 cl_username = "1a818337-f029-449a-8a03-d34f30877d1d-bluemix"
@@ -39,6 +41,22 @@ print(t)
 doc = my_database['1d8c54f34b43c94894f01744608dbf46']
 #print(json.dumps(doc))
 # Disconnect from the server
+relevance =  [float(i['value']) for i in t]
+title = 'Most Relevant Topics'
+bar_chart = pygal.Bar(width=1200, height=600,
+                      explicit_size=True, title=title, style=DarkSolarizedStyle)
+bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
+bar_chart.add('Relevance', relevance)
+html = """
+        <html>
+             <head>
+                  <title>%s</title>
+             </head>
+              <body>
+                 %s
+             </body>
+        </html>
+        """ % (title, bar_chart.render())
 client.disconnect()
 
 #doc = my_database['1d8c54f34b43c94894f01744608dbf46']

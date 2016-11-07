@@ -114,11 +114,27 @@ def testDB():
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
             t.append(dict)
+        relevance =  [float(i['value']) for i in t]
+        title = 'Most Relevant Topics'
+        bar_chart = pygal.Bar(width=1200, height=600,
+                              explicit_size=True, title=title, style=DarkSolarizedStyle)
+        bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
+        bar_chart.add('Relevance', relevance)
+        html = """
+                <html>
+                     <head>
+                          <title>%s</title>
+                     </head>
+                      <body>
+                         %s
+                     </body>
+                </html>
+                """ % (title, bar_chart.render())
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "3: " + message
-    return jsonify(results=t)
+    return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
