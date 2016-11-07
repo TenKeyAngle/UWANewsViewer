@@ -79,8 +79,8 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
-        return "why does this not work? 1?"
         client = Cloudant(cl_username, cl_password, url=cl_url)
+        return "why does this not work? 1?"
         #client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
          #                'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0',
         #url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
