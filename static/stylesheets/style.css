@@ -29,6 +29,8 @@ body,html {
 a {
 	text-decoration: none;
 	color: #00aed1;
+	height: 100%;
+	width: 100%;
 }
 
 a:hover {
@@ -82,7 +84,6 @@ th {
 
 th, td {
 	text-align: left;
-	padding: 2px 20px;
 }
 
 .env-var {
