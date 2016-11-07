@@ -19,7 +19,7 @@ import os
 import json
 import requests
 import pygal
-from pygal.style import BlueStyle
+from pygal.style import DarkStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for
 from cloudant import cloudant
@@ -37,6 +37,15 @@ cl_url         = vcap[0]['credentials']['url']
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 
 auth        = ( cl_username, cl_password )
+
+s = DarkStyle
+s.tooltip_font_size *= 1.5
+s.label_font_size *= 1.5
+s.major_label_font_size *= 1.5
+s.legend_font_size *= 1.5
+s.title_font_size *= 1.5
+s.value_font_size *= 1.5
+s.tooltip_font_size *= 1.5
 
 @app.route('/')
 def Welcome():
@@ -118,14 +127,6 @@ def testDB():
             t.append(dict)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
-        s = BlueStyle
-        s.tooltip_font_size *= 1.5
-        s.label_font_size *= 1.5
-        s.major_label_font_size *= 1.5
-        s.legend_font_size *= 1.5
-        s.title_font_size *= 1.5
-        s.value_font_size *= 1.5
-        s.tooltip_font_size *= 1.5
         bar_chart = pygal.Bar(width=1200, height=600,
                               explicit_size=True, title=title, style=s)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
