@@ -32,6 +32,8 @@ vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 cl_username = vcap[0]['credentials']['username']
 cl_password = vcap[0]['credentials']['password']
 cl_url         = vcap[0]['credentials']['url']
+cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
+
 auth        = ( cl_username, cl_password )
 
 @app.route('/')
@@ -107,13 +109,13 @@ def testDB():
 
         #end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view'
-       # params = {"include_docs" : "true"}
-      #  response = client.r_session.get(end_point, params=params)
+        # params = {"include_docs" : "true"}
+        #  response = client.r_session.get(end_point, params=params)
         #return response.json()
         # Define the end point and parameters
         end_point = '{0}/{1}'.format(cl_url, 'x/_all_docs')
         #params = {'include_docs': 'true'}
-        r = requests.get(end_point, auth=auth)
+        r = requests.get(end_point)
         return r.json()
         # Issue the request
        # response = client.r_session.get(end_point, params=params)
