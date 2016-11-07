@@ -31,7 +31,7 @@ vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
 cl_username = vcap[0]['credentials']['username']
 cl_password = vcap[0]['credentials']['password']
-url         = vcap[0]['credentials']['url']
+cl_url         = vcap[0]['credentials']['url']
 auth        = ( cl_username, cl_password )
 
 @app.route('/')
@@ -77,10 +77,13 @@ def create_db(db):
 @app.route('/testdb')
 def testDB():
     try:
+        client = Cloudant(cl_username, cl_password, url=cl_url)
         client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
-                          'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0', url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
+                         'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0',
+        url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
         client.connect()
         session = client.session()
+        return "works"
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
