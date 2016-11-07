@@ -71,7 +71,7 @@ def AnalyzeDoc():
 
 @app.route('/createdb/<db>')
 def create_db(db):
-    requests.put( url + '/' + db, auth=auth )
+    requests.put( cl_url + '/' + db, auth=auth )
     return 'Database %s created.' % db
 
 @app.route('/testdb')
@@ -118,7 +118,7 @@ def testDB():
         response = client.r_session.get(end_point, params=params)
 
         # Display the response content
-        print response.json()
+        return response.json()
         #j = requests.get('https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view')
         #return j
