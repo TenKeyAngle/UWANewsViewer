@@ -19,7 +19,7 @@ import os
 import json
 import requests
 import pygal
-from pygal.style import DarkStyle
+from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for
 from cloudant import cloudant
@@ -38,7 +38,8 @@ cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4
 
 auth        = ( cl_username, cl_password )
 
-s = DarkStyle
+s = DarkSolarizedStyle
+s.background = '#3b4b54'
 s.tooltip_font_size *= 1.5
 s.label_font_size *= 1.5
 s.major_label_font_size *= 1.5
