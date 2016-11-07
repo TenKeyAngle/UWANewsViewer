@@ -6,4 +6,4 @@ applications:
   name: '21331893'
   host: '21331893'
   disk_quota: 1024M
-  buildpack: python_buildpack
+  buildpack: heroku_python_buildpack
