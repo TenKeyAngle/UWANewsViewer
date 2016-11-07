@@ -113,7 +113,8 @@ def testDB():
         # Define the end point and parameters
         end_point = '{0}/{1}'.format(cl_url, 'my_database/_all_docs')
         #params = {'include_docs': 'true'}
-        return requests.get(end_point, auth=auth )
+        r = requests.get(end_point, auth=auth )
+        return r.json()
         # Issue the request
        # response = client.r_session.get(end_point, params=params)
 
