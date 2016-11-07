@@ -21,7 +21,7 @@ import requests
 import pygal
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for
 from cloudant import cloudant
 from cloudant.client import Cloudant
 from cloudant.document import Document
@@ -137,11 +137,11 @@ def getHTML():
                      </head>
                       <body>
                         <figure>
-                         <embed type="image/svg+xml" src="{{ url_for('testdb.svg') }}" />
+                         <embed type="image/svg+xml" src="%s" />
                          </figure>
                      </body>
                 </html>
-                """
+                """ % url_for('testDB')
     return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
