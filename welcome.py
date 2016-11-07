@@ -57,6 +57,7 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
+# Testing Alchemy Connection
 @app.route('/alchemytest')
 def ConfirmConnection():
     key = os.environ.get('alchemyKey')
