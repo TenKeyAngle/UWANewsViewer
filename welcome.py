@@ -137,7 +137,7 @@ def getHTML():
                      </head>
                       <body>
                         <figure>
-                         <embed type="{{ url_for('testdb.svg') }}" src="%s" />
+                         <embed type="image/svg+xml" src="{{ url_for('testdb.svg') }}" />
                          </figure>
                      </body>
                 </html>
