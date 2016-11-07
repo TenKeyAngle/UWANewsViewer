@@ -84,7 +84,6 @@ def testDB():
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
         client.connect()
         session = client.session()
-        return "works"
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
@@ -104,11 +103,13 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix' \
+        doc = my_database['1d8c54f34b43c94894f01744608dbf46']
+        return jsonify(doc)
+        #end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix' \
                      ':b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view'
-        params = {"include_docs" : "true"}
-        response = client.r_session.get(end_point, params=params)
-        return response.json()
+        #params = {"include_docs" : "true"}
+        #response = client.r_session.get(end_point, params=params)
+        #return response.json()
         #j = requests.get('https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view')
         #return j
