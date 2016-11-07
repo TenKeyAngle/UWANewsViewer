@@ -119,12 +119,12 @@ def testDB():
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
         s = BlueStyle
-        #BlueStyle.tooltip_font_size *= 1.5
-        #BlueStyle.label_font_size *= 1.5
-        #BlueStyle.major_label_font_size *= 1.5
-        #BlueStyle.legend_font_size *= 1.5
-        #BlueStyle.title_font_size *= 1.5
-        #BlueStyle.value_font_size *= 1.5
+        s.tooltip_font_size *= 1.5
+        s.label_font_size *= 1.5
+        s.major_label_font_size *= 1.5
+        s.legend_font_size *= 1.5
+        s.title_font_size *= 1.5
+        s.value_font_size *= 1.5
         s.tooltip_font_size *= 1.5
         bar_chart = pygal.Bar(width=1200, height=600,
                               explicit_size=True, title=title, style=s)
