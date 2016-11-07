@@ -112,13 +112,13 @@ def testDB():
         #return response.json()
         # Define the end point and parameters
         end_point = '{0}/{1}'.format(cl_url, 'my_database/_all_docs')
-        params = {'include_docs': 'true'}
-
+        #params = {'include_docs': 'true'}
+        return requests.get(end_point, auth=auth )
         # Issue the request
-        response = client.r_session.get(end_point, params=params)
+       # response = client.r_session.get(end_point, params=params)
 
         # Display the response content
-        return response.json()
+        #return response.json()
         #j = requests.get('https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view')
         #return j
