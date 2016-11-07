@@ -18,6 +18,8 @@
 import os
 import json
 import requests
+import pygal
+from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify
 from cloudant import cloudant
