@@ -107,7 +107,6 @@ def testDB():
     try:
         end_point = '{0}/{1}'.format(cl_url, 'x/_all_docs')
         r = requests.get(end_point)
-        return "test"
         #doc = my_database['1d8c54f34b43c94894f01744608dbf46']
         #end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
         # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view'
@@ -127,7 +126,7 @@ def testDB():
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "3: " + message
-    return r.json()
+    return r.text
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
