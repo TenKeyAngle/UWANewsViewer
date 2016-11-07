@@ -107,26 +107,18 @@ def testDB():
     try:
         end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
         r = requests.get(end_point)
-        #doc = my_database['1d8c54f34b43c94894f01744608dbf46']
-        #end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
-        # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view'
-        # params = {"include_docs" : "true"}
-        #  response = client.r_session.get(end_point, params=params)
-        #return response.json()
-        # Define the end point and parameters
-        # Issue the request
-        #params = {'include_docs': 'true'}
-        # response = client.r_session.get(end_point, params=params)
-        # Display the response content
-        #return response.json()
-        #j = requests.get('https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
-        # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com/x/_design/des/_view/new-view')
-        #return j
+        r = r.json()
+        t = []
+        for item in r.get('rows'):
+            dict={}
+            dict['key'] = item.get('key')
+            dict['value'] = item.get('value')
+            t.append(dict)
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "3: " + message
-    return r.text
+    return t
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
