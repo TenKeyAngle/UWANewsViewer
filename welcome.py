@@ -105,7 +105,7 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = '{0}/{1}'.format(cl_url, 'x/_all_docs')
+        end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
         r = requests.get(end_point)
         #doc = my_database['1d8c54f34b43c94894f01744608dbf46']
         #end_point = 'https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
