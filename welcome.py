@@ -133,11 +133,11 @@ def getHTML():
     html = """
                 <html>
                      <head>
-                          <title>%s</title>
+                          <title>Chart</title>
                      </head>
                       <body>
                         <figure>
-                         <embed type="image/svg+xml" src="/tesdb.svg" />
+                         <embed type="{{ url_for('testdb.svg') }}" src="%s" />
                          </figure>
                      </body>
                 </html>
