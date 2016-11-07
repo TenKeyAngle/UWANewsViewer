@@ -39,7 +39,7 @@ cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4
 auth        = ( cl_username, cl_password )
 
 s = DarkSolarizedStyle
-s.font_family = {'Arial', 'sans-serif'}
+s.font_family = 'Arial'
 s.background = '#3b4b54'
 s.plot_background = '#3b4b54'
 s.tooltip_font_size *= 1.5
