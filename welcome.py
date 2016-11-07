@@ -19,7 +19,7 @@ import os
 import json
 import requests
 import pygal
-from pygal.style import DarkSolarizedStyle
+from pygal.style import BlueStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for
 from cloudant import cloudant
@@ -119,7 +119,7 @@ def testDB():
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
         bar_chart = pygal.Bar(width=1200, height=600,
-                              explicit_size=True, title=title, style=DarkSolarizedStyle)
+                              explicit_size=True, title=title, style=BlueStyle)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
         bar_chart.add('Relevance', relevance)
     except Exception as ex:
