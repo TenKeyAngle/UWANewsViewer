@@ -2,6 +2,8 @@ from watson_developer_cloud import AlchemyLanguageV1
 from cloudant import cloudant
 from cloudant.client import Cloudant
 from cloudant.document import Document
+from flask import jsonify
+import json
 
 cl_username = "1a818337-f029-449a-8a03-d34f30877d1d-bluemix"
 cl_password = "b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0",
@@ -21,5 +23,7 @@ my_database = client['x']
 if my_database.exists():
     print('SUCCESS!')
 
+doc = my_database['1d8c54f34b43c94894f01744608dbf46']
+print(json.dumps(doc))
 # Disconnect from the server
 client.disconnect()
