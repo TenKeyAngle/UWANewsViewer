@@ -78,7 +78,7 @@ def create_db(db):
     requests.put( cl_url + '/' + db, auth=auth )
     return 'Database %s created.' % db
 
-@app.route('/testdb')
+@app.route('/testdb.svg')
 def testDB():
     try:
         client = Cloudant(cl_username, cl_password, url=cl_url)
@@ -122,20 +122,26 @@ def testDB():
                               explicit_size=True, title=title, style=DarkSolarizedStyle)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
         bar_chart.add('Relevance', relevance)
-        html = """
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "3: " + message
+    return bar_chart.render_response()
+
+@app.route('/testdb')
+def getHTML():
+    html = """
                 <html>
                      <head>
                           <title>%s</title>
                      </head>
                       <body>
-                         %s
+                        <figure>
+                         <embed type="image/svg+xml" src="/tesdb.svg" />
+                         </figure>
                      </body>
                 </html>
-                """ % (title, bar_chart.render_response())
-    except Exception as ex:
-        template = "An exception of type {0} occured. Arguments:\n{1!r}"
-        message = template.format(type(ex).__name__, ex.args)
-        return "3: " + message
+                """
     return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
