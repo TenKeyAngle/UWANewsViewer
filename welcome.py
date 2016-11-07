@@ -40,6 +40,7 @@ auth        = ( cl_username, cl_password )
 
 s = DarkSolarizedStyle
 s.background = '#3b4b54'
+s.plot_background = '#3b4b54'
 s.tooltip_font_size *= 1.5
 s.label_font_size *= 1.5
 s.major_label_font_size *= 1.5
