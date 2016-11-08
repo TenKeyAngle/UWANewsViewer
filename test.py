@@ -8,14 +8,13 @@ import pygal
 from pygal.style import DarkSolarizedStyle
 import requests
 
+
 cl_username = "1a818337-f029-449a-8a03-d34f30877d1d-bluemix"
 cl_password = "b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0",
 cl_url      = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 
 auth = (cl_username, cl_password)
 client = Cloudant(cl_username, cl_password, url=cl_url)
-
-
 
 # Connect to the server
 client.connect()
@@ -26,7 +25,17 @@ my_database = client['x']
 
 if my_database.exists():
     print('SUCCESS!')
-end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
+
+alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+url = 'http://www.news.uwa.edu.au/201611019163/awards-and-prizes/uwa-awarded-178-million-national-research-funding'
+combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts',
+                       'doc-emotion']
+data = alchemy.combined(url=url, extract=combined_operations)
+doc = my_database.create_document(data)
+if doc.exists():
+    print('SUCCESS 2!')
+print(json.dumps(data, indent=2))
+end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view1')
 #params = {'include_docs': 'true'}
 r = requests.get(end_point)
 print(r.json())
@@ -37,7 +46,7 @@ for item in r.get('rows'):
     dict['key'] = item.get('key')
     dict['value'] = item.get('value')
     t.append(dict)
-print(t)
+#print(t)
 doc = my_database['1d8c54f34b43c94894f01744608dbf46']
 #print(json.dumps(doc))
 # Disconnect from the server

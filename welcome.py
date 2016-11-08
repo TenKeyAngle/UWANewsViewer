@@ -19,6 +19,10 @@ import os
 import json
 import requests
 import pygal
+import linkscraper
+from linkscraper import BlogSpider
+import scrapy
+from scrapy.crawler import CrawlerProcess
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for
@@ -66,6 +70,13 @@ def GetPeople():
         {'name': 'Bill', 'val': 26}
     ]
     return jsonify(results=list)
+
+@app.route('/scrape')
+def Scrape():
+    process = CrawlerProcess()
+    process.crawl(BlogSpider)
+    generator = process.start()
+    return generator
 
 @app.route('/api/people/<name>')
 def SayHello(name):

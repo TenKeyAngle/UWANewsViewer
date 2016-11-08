@@ -6,7 +6,7 @@ alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 
 #url = 'https://developer.ibm.com/watson/blog/2015/11/03/price-reduction-for-watson-personality-insights/'
 #url = 'http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier
-url = 'http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue-identified-first-time'
+url = 'http://www.news.uwa.edu.au/201611019163/awards-and-prizes/uwa-awarded-178-million-national-research-funding'
 # -previously-thought'
 #print(json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.',
 #                                                     targets=['cats', 'dogs'], language='english'), indent=2))
