@@ -85,9 +85,13 @@ def Scrape():
                 list.append(link)
     finally:
         f.close()
-    # end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
-    # r = requests.get(end_point)
-    return jsonify(results=list)
+    end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/getlinks')
+    r = requests.get(end_point)
+    r = r.json()
+    t = []
+    for item in r.get('rows'):
+        t.append(item.get('value'))
+    return jsonify(results=t)
 
 @app.route('/api/people/<name>')
 def SayHello(name):
