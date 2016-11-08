@@ -77,10 +77,7 @@ def JsonTest():
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "test")
     a = requests.post(tofind, json=j)
-    list = []
-    for i in a:
-        list.append(i)
-    return "<html><head></head><body>Hmm...</body></html>"
+    return jsonify(a)
 
 @app.route('/myapp')
 def WelcomeToMyapp():
