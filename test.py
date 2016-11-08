@@ -57,7 +57,7 @@ html = """
              </body>
         </html>
         """ % (title, bar_chart.render())
-bar_chart.render_to_png('chart.png')
+#bar_chart.render_to_png('chart.png')
 client.disconnect()
 
 #doc = my_database['1d8c54f34b43c94894f01744608dbf46']

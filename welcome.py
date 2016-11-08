@@ -131,8 +131,7 @@ def testDB():
             t.append(dict)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
-        bar_chart = pygal.Bar(width=1200, height=600,
-                              explicit_size=True, title=title, style=s)
+        bar_chart = pygal.Bar(title=title, style=s)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
         bar_chart.add('Relevance', relevance)
     except Exception as ex:
