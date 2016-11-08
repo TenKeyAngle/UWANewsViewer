@@ -104,6 +104,8 @@ def Scrape():
     for i in list:
         data = alchemy.combined(url=i, extract=combined_operations)
         doc = my_database.create_document(data)
+        if not doc.exists():
+            return "Doc not created: " + jsonify(results=data)
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
