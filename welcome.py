@@ -96,9 +96,6 @@ def Scrape():
         return message
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     my_database = client['test']
-    #list = []
-    #alchemy.combined(url='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue'
-     #                         '-identified-first-time', extract=combined_operations)
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
