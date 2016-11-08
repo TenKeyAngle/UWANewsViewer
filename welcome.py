@@ -95,8 +95,7 @@ def Scrape():
             if row[0] != 'url' and row[0] != '':
                 link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
                 list.append(link)
-    combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts',
-                           'doc-emotion']
+    combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     my_database = client['test']
     for i in list:
         data = alchemy.combined(url=i, extract=combined_operations)
