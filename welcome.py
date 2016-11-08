@@ -18,11 +18,8 @@
 import os
 import json
 import requests
+import csv
 import pygal
-import linkscraper
-from linkscraper import BlogSpider
-import scrapy
-from scrapy.crawler import CrawlerProcess
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for
@@ -73,10 +70,24 @@ def GetPeople():
 
 @app.route('/scrape')
 def Scrape():
-    process = CrawlerProcess()
-    process.crawl(BlogSpider)
-    generator = process.start()
-    return generator
+    f = open('items/news.csv', 'rb')
+    list = []
+    try:
+        reader = csv.reader(f)
+        # rownum = 0
+        for row in reader:
+            #if rownum == 3:
+            #    last = row[0]
+            #    break
+            #rownum += 1
+            if row[0] != 'url' and row[0] != '':
+                link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
+                list.append(link)
+    finally:
+        f.close()
+    # end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
+    # r = requests.get(end_point)
+    return jsonify(results=list)
 
 @app.route('/api/people/<name>')
 def SayHello(name):
