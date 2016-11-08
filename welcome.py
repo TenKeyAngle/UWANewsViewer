@@ -101,18 +101,20 @@ def Scrape():
         return message
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     my_database = client['test']
-    t = alchemy.combined(url='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue-identified-first-time', extract=combined_operations)
-    #for i in list:
-    #    data = alchemy.combined(url=i, extract=combined_operations)
-    #    doc = my_database.create_document(data)
-    #    if not doc.exists():
-     #       return "Doc not created: " + jsonify(results=data)
-   # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
-   # r = requests.get(end_point)
-   # r = r.json()
-  #  t = []
-   # for item in r.get('rows'):
-   #     t.append(item.get('value'))
+    list = []
+    #alchemy.combined(url='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue'
+     #                         '-identified-first-time', extract=combined_operations)
+    for i in list:
+        data = alchemy.combined(url=i, extract=combined_operations)
+        doc = my_database.create_document(data)
+        if not doc.exists():
+            return "Doc not created: " + jsonify(results=data)
+    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    r = requests.get(end_point)
+    r = r.json()
+    t = []
+    for item in r.get('rows'):
+        t.append(item.get('value'))
     return jsonify(results=t)
 
 @app.route('/api/people/<name>')
