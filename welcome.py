@@ -52,6 +52,18 @@ s.title_font_size *= 1.5
 s.value_font_size *= 1.5
 s.tooltip_font_size *= 1.5
 
+try:
+    client = Cloudant(cl_username, cl_password, url=cl_url)
+    #client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
+    #                'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0',
+    #url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
+    # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
+    client.connect()
+    session = client.session()
+except Exception as ex:
+    template = "An exception of type {0} occured. Arguments:\n{1!r}"
+    message = template.format(type(ex).__name__, ex.args)
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
@@ -83,9 +95,13 @@ def Scrape():
             if row[0] != 'url' and row[0] != '':
                 link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
                 list.append(link)
-    finally:
-        f.close()
-    end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/getlinks')
+    combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts',
+                           'doc-emotion']
+    my_database = client['test']
+    for i in list:
+        data = alchemy.combined(url=i, extract=combined_operations)
+        doc = my_database.create_document(data)
+    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
     t = []
@@ -120,18 +136,6 @@ def create_db(db):
 @app.route('/testdb.svg')
 def testDB():
     try:
-        client = Cloudant(cl_username, cl_password, url=cl_url)
-        #client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
-         #                'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0',
-        #url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
-        # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
-        client.connect()
-        session = client.session()
-    except Exception as ex:
-        template = "An exception of type {0} occured. Arguments:\n{1!r}"
-        message = template.format(type(ex).__name__, ex.args)
-        return "1: " + message
-    try:
         my_database = client['x']
         if not my_database.exists():
             return 'Database does not exist'
@@ -146,7 +150,7 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = '{0}/{1}'.format(cl_url, 'x/_design/des/_view/new-view')
+        end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/new-view')
         r = requests.get(end_point)
         r = r.json()
         t = []
