@@ -86,12 +86,7 @@ def Scrape():
     list = []
     try:
         reader = csv.reader(f)
-        # rownum = 0
         for row in reader:
-            #if rownum == 3:
-            #    last = row[0]
-            #    break
-            #rownum += 1
             if row[0] != 'url' and row[0] != '':
                 link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
                 list.append(link)
@@ -101,7 +96,7 @@ def Scrape():
         return message
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     my_database = client['test']
-    list = []
+    #list = []
     #alchemy.combined(url='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue'
      #                         '-identified-first-time', extract=combined_operations)
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
