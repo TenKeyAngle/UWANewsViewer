@@ -95,6 +95,10 @@ def Scrape():
             if row[0] != 'url' and row[0] != '':
                 link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
                 list.append(link)
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return message
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     my_database = client['test']
     for i in list:
