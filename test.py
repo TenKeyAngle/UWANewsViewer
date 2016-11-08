@@ -33,7 +33,7 @@ j = {
 }
 tofind = "{0}/{1}/_find/".format(cl_url, "test")
 a = requests.post(tofind, json=j)
-print(jsonify(a))
+print(json.dumps(a.text))
 
 list = [    "http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought",
             "http://www.news.uwa.edu.au/201610289154/would-you-return-lost-letter",
