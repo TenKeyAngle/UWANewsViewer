@@ -8,6 +8,34 @@ import pygal
 from pygal.style import DarkSolarizedStyle
 import requests
 
+def alchemy_calls_left(api_key):
+# Typical response from Alchemy:
+#{
+#    "status": "OK",
+#    "consumedDailyTransactions": "1020",
+#    "dailyTransactionLimit": "1000"
+#}
+# This URL tells us how many calls we have left in a day
+    URL = "http://access.alchemyapi.com/calls/info/GetAPIKeyInfo?apikey={}&outputMode=json".format(api_key)
+# call AlchemyAPI, ask for JSON response
+    response = requests.get(URL)
+    calls_left = json.loads(response.content)
+    return calls_left
+
+cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
+#auth = ('Content-Type' : 'application/json')
+l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+print(l)
+j = {
+    "selector": {
+        "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
+    }
+}
+tofind = "{0}/{1}/_find/".format(cl_url, "test")
+a = requests.post(tofind, json=j)
+for i in a:
+    print(i)
+
 list = [    "http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought",
             "http://www.news.uwa.edu.au/201610289154/would-you-return-lost-letter",
             "http://www.news.uwa.edu.au/201609149027/research/astronomers-shed-light-different-galaxy-types",

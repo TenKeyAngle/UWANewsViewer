@@ -68,6 +68,15 @@ except Exception as ex:
 def Welcome():
     return app.send_static_file('index.html')
 
+@app.route('/jsontest')
+def JsonTest():
+    tofind = "{0}/{1}/_find/".format(cl_url, "test")
+    a = requests.post(tofind, json=j)
+    list = []
+    for i in a:
+        list.append(i)
+    return jsonify(results=list)
+
 @app.route('/myapp')
 def WelcomeToMyapp():
     return 'Welcome again to my app running on Bluemix!'
