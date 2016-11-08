@@ -70,6 +70,11 @@ def Welcome():
 
 @app.route('/jsontest')
 def JsonTest():
+    j = {
+        "selector": {
+            "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
+        }
+    }
     tofind = "{0}/{1}/_find/".format(cl_url, "test")
     a = requests.post(tofind, json=j)
     list = []
