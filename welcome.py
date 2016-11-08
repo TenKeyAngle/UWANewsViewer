@@ -80,7 +80,7 @@ def JsonTest():
     list = []
     for i in a:
         list.append(i)
-    return list
+    return "<html><head></head><body>Hmm...</body></html>"
 
 @app.route('/myapp')
 def WelcomeToMyapp():
