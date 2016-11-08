@@ -104,11 +104,18 @@ def Scrape():
     list = []
     #alchemy.combined(url='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue'
      #                         '-identified-first-time', extract=combined_operations)
+    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    r = requests.get(end_point)
+    r = r.json()
+    t = []
+    for item in r.get('rows'):
+        t.append(item.get('value'))
     for i in list:
-        data = alchemy.combined(url=i, extract=combined_operations)
-        doc = my_database.create_document(data)
-        if not doc.exists():
-            return "Doc not created: " + jsonify(results=data)
+        if not i in t:
+            data = alchemy.combined(url=i, extract=combined_operations)
+            doc = my_database.create_document(data)
+            if not doc.exists():
+                return "Doc not created: " + jsonify(results=data)
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
