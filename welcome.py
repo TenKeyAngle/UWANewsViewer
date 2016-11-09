@@ -98,7 +98,7 @@ def GetUrl():
         {'name': 'John', 'age': 28},
         {'name': 'Bill', 'val': 26}
     ]
-    return render_template('layout.html', message=jsonify(results=list))
+    return render_template('layout.html')
 
 @app.route('/scrape')
 def Scrape():
