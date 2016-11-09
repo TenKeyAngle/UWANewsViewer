@@ -83,10 +83,11 @@ def JsonTest():
             "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
         }
     }
-    tofind = "{0}/{1}/_find/".format(cl_url, "test")
-    a = requests.post(tofind, json=j)
-    return "<html><body>{0}</body></html>".format(a.text)
-    #return jsonify(a.text)
+    return jsonify(j)
+    # tofind = "{0}/{1}/_find/".format(cl_url, "test")
+    # a = requests.post(tofind, json=j)
+    # return "<html><body>{0}</body></html>".format(a.text)
+    # return jsonify(a.text)
 
 @app.route('/myapp')
 def WelcomeToMyapp():
@@ -174,16 +175,10 @@ def testDB():
         my_database = client['test']
         if not my_database.exists():
             return 'Database does not exist'
-
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "2: " + message
-    # my_database = client['x']
-    #list = ['0']
-    #for document in my_database:
-    #    list.append(document)
-    #return jsonify(results=list)
     try:
         end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
         r = requests.get(end_point)
