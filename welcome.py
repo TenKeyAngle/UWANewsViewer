@@ -180,6 +180,7 @@ def testDB():
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
             t.append(dict)
+        return jsonify(t)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
