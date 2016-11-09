@@ -183,7 +183,7 @@ def testDB():
         r = requests.get(end_point)
         r = r.json()
         t = []
-        for item in r.get('rows'):
+        for item in r:
             dict={}
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
