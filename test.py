@@ -13,7 +13,7 @@ def alchemy_calls_left(api_key):
     URL = "http://access.alchemyapi.com/calls/info/GetAPIKeyInfo?apikey={}&outputMode=json".format(api_key)
 # call AlchemyAPI, ask for JSON response
     response = requests.get(URL)
-    calls_left = json.loads(response.content)
+    calls_left = response.json()
     return calls_left
 
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
