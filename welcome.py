@@ -92,7 +92,7 @@ def GetPeople():
     ]
     return jsonify(results=list)
 
-@app.route('/geturl<url>')
+@app.route('/geturl?<url>')
 def GetUrl(url):
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
