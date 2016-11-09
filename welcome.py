@@ -184,20 +184,24 @@ def testDB():
         r = r.json()
         t = []
         for item in r['rows']:
-            dict={}
-            dict['key'] = item.get('key')
-            dict['value'] = item.get('value')
-            t.append(dict)
+            dict1={}
+            dict1['key'] = item.get('key')
+            dict1['value'] = item.get('value')
+            t.append(dict1)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
-        return title
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "3: " + message
+    try:
         bar_chart = pygal.Bar(title=title, style=s)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
         bar_chart.add('Relevance', relevance)
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
-        return "3: " + message
+        return "4: " + message
     return bar_chart.render_response()
 
 @app.route('/testdb')
