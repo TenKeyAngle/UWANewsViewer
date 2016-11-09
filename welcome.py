@@ -22,9 +22,6 @@ import csv
 import pygal
 import test
 from test import LinkForm
-import flask_wtf
-from flask_wtf import FlaskForm
-from wtforms import StringField
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for, request, render_template
