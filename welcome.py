@@ -94,12 +94,10 @@ def GetPeople():
 
 @app.route('/geturl')
 def GetUrl():
-    list = [
-        {'name': 'John', 'age': 28},
-        {'name': 'Bill', 'val': 26}
-    ]
-    #return jsonify(list)
-    return render_template('layout.html', message=json.dumps(list))
+    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    r = requests.get(end_point)
+    r = r.json()
+    return render_template('layout.html', message=r)
 
 @app.route('/scrape')
 def Scrape():
