@@ -182,6 +182,7 @@ def testDB():
         end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
+        return jsonify(r)
         t = []
         for item in r.get('rows'):
             dict={}
