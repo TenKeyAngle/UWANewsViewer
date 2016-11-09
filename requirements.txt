@@ -7,4 +7,4 @@ Scrapy==0.24.4
 Flask==0.10.1
 Twisted==15.4.0
 Flask-WTF==0.13.1
-wtforms==3.0dev
+wtforms==3.0
