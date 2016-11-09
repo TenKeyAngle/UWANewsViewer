@@ -92,12 +92,12 @@ def GetPeople():
     ]
     return jsonify(results=list)
 
-@app.route('/geturl')
-def GetUrl():
+@app.route('/geturl/<url>')
+def GetUrl(url):
     end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
-    return render_template('layout.html', message=r)
+    return render_template('layout.html', message=url)
 
 @app.route('/scrape')
 def Scrape():
