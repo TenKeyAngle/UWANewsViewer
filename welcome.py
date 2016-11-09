@@ -20,6 +20,11 @@ import json
 import requests
 import csv
 import pygal
+import test
+from test import LinkForm
+import flask_wtf
+from flask_wtf import FlaskForm
+from wtforms import StringField
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for, request, render_template
@@ -92,11 +97,13 @@ def GetPeople():
     ]
     return jsonify(results=list)
 
-@app.route('/geturl?<url>')
-def GetUrl(url):
-    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
-    r = requests.get(end_point)
-    r = r.json()
+@app.route('/geturl', methods=('GET', 'POST'))
+def GetUrl():
+    form = LinkForm()
+    url = form.name
+    # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    # r = requests.get(end_point)
+    # r = r.json()
     return render_template('layout.html', message=url)
 
 @app.route('/scrape')
