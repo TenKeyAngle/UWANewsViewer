@@ -1,13 +1,14 @@
 <!-- Gotten from Flaskr Tutorial, modified by Lidia Dokuchaeva-->
-<html>
+<!doctype html>
     <head>
         <title>Flaskr Layout</title>
-        <link rel=stylesheet type=text/css href="static/stylesheets/style.css">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
     </head>
     <body>
         <div>
-            <h1>Flaskr</h1>
+            <h1 style="margin: 2em;">Flaskr</h1>
             <div>
+                <a href="{{ url_for('/api/people') }}">Test Alchemy</a>
             </div>
         </div>
     </body>
