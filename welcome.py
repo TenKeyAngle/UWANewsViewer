@@ -185,8 +185,8 @@ def testDB():
         t = []
         for item in r:
             dict={}
-            dict['key'] = item.get('key')
-            dict['value'] = item.get('value')
+            dict['key'] = item.['key']
+            dict['value'] = item['value']
             t.append(dict)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
