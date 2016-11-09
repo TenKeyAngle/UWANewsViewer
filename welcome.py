@@ -185,7 +185,7 @@ def testDB():
         t = []
         for item in r:
             dict={}
-            dict['key'] = item.['key']
+            dict['key'] = item['key']
             dict['value'] = item['value']
             t.append(dict)
         relevance =  [float(i['value']) for i in t]
