@@ -19,3 +19,15 @@ def alchemy_calls_left(api_key):
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 print(l)
+
+end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
+r = requests.get(end_point)
+r = r.json()
+#print(r)
+t = []
+for item in r['rows']:
+    dict={}
+    dict['key'] = item.get('key')
+    dict['value'] = item.get('value')
+    t.append(dict)
+print(t)
