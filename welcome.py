@@ -99,7 +99,7 @@ def GetUrl():
         {'name': 'Bill', 'val': 26}
     ]
     #return jsonify(list)
-    return render_template('layout.html', message=jsonify(list))
+    return render_template('layout.html', message=jsonify(list.text))
 
 @app.route('/scrape')
 def Scrape():
