@@ -22,7 +22,7 @@ import csv
 import pygal
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
-from flask import Flask, jsonify, url_for
+from flask import Flask, jsonify, url_for, request, render_template
 from cloudant import cloudant
 from cloudant.client import Cloudant
 from cloudant.document import Document
@@ -91,6 +91,14 @@ def GetPeople():
         {'name': 'Bill', 'val': 26}
     ]
     return jsonify(results=list)
+
+@app.route('geturl', methods=['GET', 'POST'])
+def GetUrl():
+    list = [
+        {'name': 'John', 'age': 28},
+        {'name': 'Bill', 'val': 26}
+    ]
+    return render_template('layout.html', message=jsonify(results=list))
 
 @app.route('/scrape')
 def Scrape():
