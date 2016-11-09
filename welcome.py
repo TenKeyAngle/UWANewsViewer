@@ -92,7 +92,7 @@ def GetPeople():
     ]
     return jsonify(results=list)
 
-@app.route('geturl', methods=['GET', 'POST'])
+@app.route('/geturl', methods=['GET', 'POST'])
 def GetUrl():
     list = [
         {'name': 'John', 'age': 28},
