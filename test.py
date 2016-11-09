@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
 import json
+import csv
 import pygal
 from pygal.style import BlueStyle
 import requests
@@ -22,14 +23,34 @@ cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4
 l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 print(l)
 
-end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
-r = requests.get(end_point)
-r = r.json()
-#print(r)
-t = []
-for item in r.get('rows'):
-    dict={}
-    dict['key'] = item.get('key')
-    dict['value'] = item.get('value')
-    t.append(dict)
-#print(t)
+f = open('items/news.csv', 'r')
+list = []
+try:
+    reader = csv.reader(f)
+    for row in reader:
+        if row[0] != 'url' and row[0] != '':
+            link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
+            list.append(link)
+except Exception as ex:
+    template = "An exception of type {0} occured. Arguments:\n{1!r}"
+    message = template.format(type(ex).__name__, ex.args)
+    print(message)
+print(list)
+
+# end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
+# r = requests.get(end_point)
+# r = r.json()
+# #print(r)
+# t = []
+# rownum = 0
+# for item in r.get('rows'):
+#     dict={}
+#     dict['key'] = item.get('key')
+#     dict['value'] = item.get('value')
+#     t.append(dict)
+#     if rownum == 6:
+#         break
+#     else:
+#         rownum += 1
+# relevance =  [float(i['value']) for i in t]
+# print(relevance)

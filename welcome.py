@@ -110,7 +110,7 @@ def GetUrl(name):
 
 @app.route('/scrape')
 def Scrape():
-    f = open('items/news.csv', 'rb')
+    f = open('items/news.csv', 'r')
     list = []
     try:
         reader = csv.reader(f)
@@ -151,6 +151,16 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
+@app.route('/apikey')
+def alchemy_calls_left():
+    api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28'
+    # This URL tells us how many calls we have left in a day
+    URL = "http://access.alchemyapi.com/calls/info/GetAPIKeyInfo?apikey={}&outputMode=json".format(api_key)
+    # call AlchemyAPI, ask for JSON response
+    response = requests.get(URL)
+    calls_left = response.json()
+    return jsonify(calls_left)
+
 # Testing Alchemy Connection
 @app.route('/alchemytest')
 def ConfirmConnection():
@@ -175,12 +185,16 @@ def testDB():
         r = requests.get(end_point)
         r = r.json()
         t = []
+        rownum = 0
         for item in r.get('rows'):
             dict={}
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
             t.append(dict)
-        return jsonify(results=t)
+            if rownum == 6:
+                break
+            else:
+                rownum += 1
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
