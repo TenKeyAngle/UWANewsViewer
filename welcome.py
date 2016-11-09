@@ -171,14 +171,6 @@ def create_db(db):
 @app.route('/testdb.svg')
 def testDB():
     try:
-        my_database = client['test']
-        if not my_database.exists():
-            return 'Database does not exist'
-    except Exception as ex:
-        template = "An exception of type {0} occured. Arguments:\n{1!r}"
-        message = template.format(type(ex).__name__, ex.args)
-        return "2: " + message
-    try:
         end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
@@ -188,12 +180,13 @@ def testDB():
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
             t.append(dict)
+        return jsonify(results=t)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
-        return "3: " + message
+        return "1: " + message
     try:
         bar_chart = pygal.Bar(title=title, style=s)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
@@ -201,7 +194,7 @@ def testDB():
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
-        return "4: " + message
+        return "2: " + message
     return bar_chart.render_response()
 
 @app.route('/testdb')
