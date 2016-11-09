@@ -171,7 +171,7 @@ def create_db(db):
 @app.route('/testdb.svg')
 def testDB():
     try:
-        my_database = client['x']
+        my_database = client['test']
         if not my_database.exists():
             return 'Database does not exist'
 
@@ -185,7 +185,7 @@ def testDB():
     #    list.append(document)
     #return jsonify(results=list)
     try:
-        end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/new-view')
+        end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
         t = []
