@@ -24,7 +24,7 @@ import test
 from test import LinkForm
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
-from flask import Flask, jsonify, url_for, request, render_template
+from flask import Flask, jsonify, url_for, request, render_template, redirect
 from cloudant import cloudant
 from cloudant.client import Cloudant
 from cloudant.document import Document
@@ -68,8 +68,13 @@ except Exception as ex:
 
 @app.route('/')
 def Welcome():
-    return render_template('index.html')
-
+    form = LinkForm(request.args)
+    if request.method == 'GET':
+        if form.validate() == False:
+            return render_template('index.html', form = form)
+        else:
+            return redirect(url_for(GetUrl(), name=form.name.data))
+    return render_template('index.html', form = form)
 @app.route('/jsontest')
 def JsonTest():
     j = {
@@ -95,9 +100,8 @@ def GetPeople():
     return jsonify(results=list)
 
 @app.route('/geturl', methods=('GET', 'POST'))
-def GetUrl():
-    form = LinkForm()
-    url = form.name
+def GetUrl(name):
+    url = name
     # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
     # r = requests.get(end_point)
     # r = r.json()
