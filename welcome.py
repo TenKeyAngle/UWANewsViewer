@@ -182,13 +182,13 @@ def testDB():
         end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
+        return jsonify(r)
         t = []
         for item in r['rows']:
             dict={}
             dict['key'] = item.get('key')
             dict['value'] = item.get('value')
             t.append(dict)
-        return jsonify(t)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
         bar_chart = pygal.Bar(title=title, style=s)
