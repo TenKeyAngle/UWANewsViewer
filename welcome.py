@@ -183,11 +183,11 @@ def testDB():
         r = requests.get(end_point)
         r = r.json()
         t = []
-        for item in r['rows']:
-            dict1={}
-            dict1['key'] = item.get('key')
-            dict1['value'] = item.get('value')
-            t.append(dict1)
+        for item in r.get('rows'):
+            dict={}
+            dict['key'] = item.get('key')
+            dict['value'] = item.get('value')
+            t.append(dict)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
