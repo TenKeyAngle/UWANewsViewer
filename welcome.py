@@ -71,7 +71,7 @@ except Exception as ex:
 
 @app.route('/')
 def Welcome():
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 @app.route('/jsontest')
 def JsonTest():
