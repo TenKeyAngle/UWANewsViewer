@@ -68,12 +68,13 @@ except Exception as ex:
 
 @app.route('/')
 def Welcome():
-    form = LinkForm(request.args)
-    if request.method == 'GET':
-        if form.validate() == False:
-            return render_template('index.html', form = form)
-        else:
-            return redirect(url_for(GetUrl(), name=form.name.data))
+    # form = LinkForm(request.args)
+    form = LinkForm()
+    #if request.method == 'GET':
+       # if form.validate() == False:
+       #     return render_template('index.html', form = form)
+       # else:
+       #     return redirect(url_for(GetUrl(), name=form.name.data))
     return render_template('index.html', form = form)
 @app.route('/jsontest')
 def JsonTest():
