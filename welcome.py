@@ -190,7 +190,7 @@ def testDB():
             t.append(dict)
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
-        return title + jsonify(relevance)
+        return title
         bar_chart = pygal.Bar(title=title, style=s)
         bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
         bar_chart.add('Relevance', relevance)
