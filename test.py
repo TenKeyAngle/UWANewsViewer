@@ -23,18 +23,16 @@ cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4
 l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 print(l)
 
-f = open('items/news.csv', 'r')
-list = []
-try:
-    reader = csv.reader(f)
-    for row in reader:
-        if row[0] != 'url' and row[0] != '':
-            link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
-            list.append(link)
-except Exception as ex:
-    template = "An exception of type {0} occured. Arguments:\n{1!r}"
-    message = template.format(type(ex).__name__, ex.args)
-    print(message)
+end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getrelevance')
+r = requests.get(end_point)
+r = r.json()
+t = {}
+for item in r.get('rows'):
+    if item.get('key') in t:
+        t[item.get('key')] +=  float(item.get('value'))
+    else:
+        t[item.get('key')] =  float(item.get('value'))
+print(t)
 # print(list)
 
 # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')

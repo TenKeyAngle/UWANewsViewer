@@ -62,7 +62,7 @@ try:
     client.connect()
     session = client.session()
     database = client['uwanews']
-    if not databse.exists():
+    if not database.exists():
     	print("Database uwanews not found.")
 except Exception as ex:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
@@ -153,7 +153,7 @@ def Scrape():
     for i in list:
         if not i in t:
             data = alchemy.combined(url=i, extract=combined_operations)
-            doc = my_database.create_document(data)
+            doc = database.create_document(data)
             if not doc.exists():
                 return "Doc not created: " + jsonify(results=data)
     end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
@@ -198,23 +198,22 @@ def create_db(db):
     requests.put( cl_url + '/' + db, auth=auth )
     return 'Database %s created.' % db
 
+@app.route('/getemotions.svg')
+def GetEmotions():
+    return "nothing"
+
 @app.route('/testdb.svg')
 def testDB():
     try:
         end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
-        t = []
-        rownum = 0
+        t = {}
         for item in r.get('rows'):
-            dict={}
-            dict['key'] = item.get('key')
-            dict['value'] = item.get('value')
-            t.append(dict)
-            if rownum == 6:
-                break
+            if item.get('key') in t:
+                t[item.get('key')] +=  float(item.get('value'))
             else:
-                rownum += 1
+                t[item.get('key')] =  float(item.get('value'))
         relevance =  [float(i['value']) for i in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
@@ -246,14 +245,17 @@ def getHTML():
                       <body>
                       	<div class='leftHalf'>
                         <figure>
-                         <embed type="image/svg+xml" src="%s" />
+                         <embed type="image/svg+xml" src="{0}" />
                          </figure>
                          </div>
                          <div class='rightHalf'>
+                         <figure>
+                         <embed type="image/svg+xml" src="{1}" />
+                         </figure>
                          </div>
                      </body>
                 </html>
-                """ % url_for('testDB')
+                """.format(url_for('testDB'), url_for('GetEmotions'))
     return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
