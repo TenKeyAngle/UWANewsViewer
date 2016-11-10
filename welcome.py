@@ -61,20 +61,24 @@ try:
     # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
     client.connect()
     session = client.session()
+    database = client['uwanews']
+    if not databse.exists():
+    	print("Database uwanews not found.")
 except Exception as ex:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(ex).__name__, ex.args)
 
 @app.route('/')
 def Welcome():
-    form = LinkForm(request.args)
+    #form = LinkForm(request.args)
     #form = LinkForm()
     #if request.method == 'GET':
        # if form.validate() == False:
        #     return render_template('index.html', form = form)
        # else:
        #     return redirect(url_for(GetUrl(), name=form.name.data))
-    return render_template('index.html', form=form)
+    return render_template('index.html')
+	#return '<html><head></head><body>Works, why?</body></html>'
 @app.route('/jsontest')
 def JsonTest():
     j = {
@@ -82,16 +86,33 @@ def JsonTest():
             "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
         }
     }
-    return jsonify(j)
-    # tofind = "{0}/{1}/_find/".format(cl_url, "test")
-    # a = requests.post(tofind, json=j)
+    tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+    a = requests.post(tofind, json=j)
     # return "<html><body>{0}</body></html>".format(a.text)
-    # return jsonify(a.text)
-
-@app.route('/myapp')
-def WelcomeToMyapp():
-    return 'Welcome again to my app running on Bluemix!'
-
+    return a.text
+    
+@app.route('/keyword/<word>')
+def SearchDB(word):
+    j = {
+      "selector": {
+         "$text": word
+       },
+       "fields": [
+         "_id",
+         "_rev",
+         "url",
+         "title",
+      "publicationDate"
+     ],  "sort": [
+     { 
+        "publicationDate:string":"desc"
+      }
+     ]
+    }
+    tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+    a = requests.post(tofind, json=j)
+    return a.text
+    
 @app.route('/api/people')
 def GetPeople():
     list = [
@@ -100,10 +121,10 @@ def GetPeople():
     ]
     return jsonify(results=list)
 
-@app.route('/geturl', methods=('GET', 'POST'))
+@app.route('/geturl/<name>')
 def GetUrl(name):
     url = name
-    # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    # end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     # r = requests.get(end_point)
     # r = r.json()
     return render_template('layout.html', message=url)
@@ -123,8 +144,7 @@ def Scrape():
         message = template.format(type(ex).__name__, ex.args)
         return message
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
-    my_database = client['test']
-    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
     t = []
@@ -136,7 +156,7 @@ def Scrape():
             doc = my_database.create_document(data)
             if not doc.exists():
                 return "Doc not created: " + jsonify(results=data)
-    end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getlinks')
+    end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
     t = []
@@ -181,7 +201,7 @@ def create_db(db):
 @app.route('/testdb.svg')
 def testDB():
     try:
-        end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
+        end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getrelevance')
         r = requests.get(end_point)
         r = r.json()
         t = []
@@ -202,14 +222,15 @@ def testDB():
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
     try:
-        bar_chart = pygal.Bar(title=title, style=s)
-        bar_chart.x_labels = ['%s' % str(i['key']) for i in t]
+        bar_chart =  pygal.Bar(title=title, style=s)
+        labels = ['%s' % str(i['key']) for i in t]
+        bar_chart.x_labels = labels
         bar_chart.add('Relevance', relevance)
+        return bar_chart.render_response()
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "2: " + message
-    return bar_chart.render_response()
 
 @app.route('/testdb')
 def getHTML():
@@ -223,9 +244,13 @@ def getHTML():
                      <link rel="stylesheet" href="static/stylesheets/style.css">
                    </head>
                       <body>
+                      	<div class='leftHalf'>
                         <figure>
                          <embed type="image/svg+xml" src="%s" />
                          </figure>
+                         </div>
+                         <div class='rightHalf'>
+                         </div>
                      </body>
                 </html>
                 """ % url_for('testDB')

@@ -35,7 +35,7 @@ except Exception as ex:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(ex).__name__, ex.args)
     print(message)
-print(list)
+# print(list)
 
 # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
 # r = requests.get(end_point)

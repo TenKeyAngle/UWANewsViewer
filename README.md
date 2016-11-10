@@ -1,17 +1,31 @@
-This README.md file is displayed on your project page. You should edit this 
-file to describe your project, including instructions for building and 
-running the project, pointers to the license under which you are making the 
-project available, and anything else you think would be useful for others to
-know.
+# Lidia Dokuchaeva - 21331893
+A running version of the app is available at http://21331893.au-syd.mybluemix.net/. It can also be accessed (in the au-syd region) through the Bluemix Dashboard-->Apps-->21331893. This should be visible to everyone in the organization. In order to run it, start the app. If a fresh copy is needed, clone the repository given below, and deploy it as a Bluemix App. 
 
-We have created an empty license.txt file for you. Well, actually, it says,
-"<Replace this text with the license you've chosen for your project.>" We 
-recommend you edit this and include text for license terms under which you're
-making your code available. A good resource for open source licenses is the 
-[Open Source Initiative](http://opensource.org/).
+The original git repository is available at https://hub.jazz.net/git/tenkeyangle/21331893 - it can be accessed through the app. A GitHub clone is available at .
 
-Be sure to update your project's profile with a short description and 
-eye-catching graphic.
+Note: this project also uses a Cloudant database, which is bound to the app. If access is needed, or a copy of the database is required, the credentials are:
 
-Finally, consider defining some sprints and work items in Track & Plan to give 
-interested developers a sense of your cadence and upcoming enhancements.
+* Username: 1a818337-f029-449a-8a03-d34f30877d1d-bluemix
+* Password: b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0
+* URL: https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com
+* Database name: uwanews
+
+An API key for 
+
+## Requirements
+### Functional Requirements
+ - 
+### Non-Functional Requirements
+ - Scalability: the database must be able to handle a large amount of data
+ - Availability: the database must retrieve data quickly, to reduce user wait
+ - Flexibility: the database should be able to accomodate a large variety of queries
+ - Usability: the website must be user-friendly and easy to navigate
+
+## Tutorials Used
+- [Pygal and Flask Integration](https://www.google.com.au/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjymPrbxp3QAhXNNpQKHRLqDScQFggcMAA&url=http%3A%2F%2Fwww.blog.pythonlibrary.org%2F2015%2F04%2F16%2Fusing-pygal-graphs-in-flask%2F&usg=AFQjCNFKWy6PF9MOshjGlIs8BugYV8RIxQ)
+- [Cloudant Query Tutorial](https://cloudant.com/using-cloudant-query-tutorial/)
+- [Flask Tutorial](http://flask.pocoo.org/docs/0.11/tutorial/)
+- [Pygal Tutorial](http://www.pygal.org/en/stable/documentation/first_steps.html)
+- [Scrapy Tutorial](https://doc.scrapy.org/en/latest/intro/tutorial.html)
+- CloudFoundry Sample Python/Flask app
+- [Flask Bluemix HelloWorld App](https://www.ibm.com/blogs/bluemix/2015/03/simple-hello-world-python-app-using-flask/)
