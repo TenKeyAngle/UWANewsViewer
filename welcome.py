@@ -182,8 +182,8 @@ def GetEmotions():
     try:
         title = 'Key Emotions'
         pie_chart = pygal.Pie(title=title, style=s)
-        for key, value in t:
-            pie_chart.add(key, value)
+        for key in t:
+            pie_chart.add(key, t[key])
         return pie_chart.render_response()
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
