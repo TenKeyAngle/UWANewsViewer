@@ -21,7 +21,6 @@ class NewsSpider(scrapy.Spider):
         finally:
             f.close()
         for title in response.css('h3'):
-            # syield {'title': title.css('a ::text').extract_first()}
             current = title.css('a ::attr(href)').extract_first()
             if current == last:
                 print(current)

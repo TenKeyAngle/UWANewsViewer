@@ -121,7 +121,7 @@ def GetUrl():
     a = a.json()
     a = a['docs'][0]
     doc = database[a.get('_id')]
-    return render_template('layout.html', message=doc.document_url)
+    return render_template('layout.html', message=doc.json())
 
 @app.route('/scrape')
 def Scrape():

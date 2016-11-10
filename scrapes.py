@@ -1,7 +1,7 @@
 import sys
 import csv
 
-f = open('news.csv', 'rb')
+f = open('items/news.csv', 'rb')
 try:
     reader = csv.reader(f)
     rownum = 0
