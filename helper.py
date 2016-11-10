@@ -27,9 +27,9 @@ def alchemy_calls_left(api_key):
 def getDocDeets(json):
     html = "<table class='results'>"
     if 'title' in json:
-        html+= "<tr><td colspan='2' id='title'>{}</td></tr>".format(str(json['title']))
+        html+= "<tr><td colspan='3' id='title'>{}</td></tr>".format(str(json['title']))
     if 'url' in json:
-        html+= "<tr><td colspan='2' id='url'><a href='{}'>{}</a></td></tr>".format(json['url'], json['url'])
+        html+= "<tr><td colspan='3' id='url'><a href='{}'>{}</a></td></tr>".format(json['url'], json['url'])
     if 'publicationDate' in json:
         date = json['publicationDate']['date']
         year = date[:4]
@@ -40,20 +40,20 @@ def getDocDeets(json):
         html+="<tr><td colspan='2' id='date'>{0}/{1}/{2}</td></tr>".format(day, month, year)
     if 'docEmotions' in json:
         emotes = json['docEmotions']
-        html += "<tr><td colspan='2' id='emotes'>Doc Emotions:</td></tr>"
+        html += "<tr><td colspan='3' id='emotes'>Doc Emotions:</td></tr>"
         for key in emotes:
-            html += '<tr><td><'
+            html += '<tr><td>'
             html += key
-            html += '</td><td colspan="3">'
+            html += '</td><td colspan="2">'
             html += emotes[key]
             html += '</td><td></td></tr>'
     if 'concepts' in json:
         concepts = json['concepts']
-        html += "<tr><td colspan='2' id='concepts'>Concepts:</td></tr>"
+        html += "<tr><td colspan='3' id='concepts'>Concepts:</td></tr>"
         for concept in concepts:
             html += '<tr><td>'
             html += concept['text']
-            html += '</td><td colspan="3">'
+            html += '</td><td colspan="2">'
             html += concept['relevance']
             html += '</td></tr>'
     html += "</table>"
