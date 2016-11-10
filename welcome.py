@@ -114,22 +114,12 @@ def GetUrl():
     j = {
         "selector": {
             "$text": url
-        },
-        "fields": [
-            "_id",
-            "_rev",
-            "url",
-            "title",
-            "publicationDate"
-        ],  "sort": [
-            {
-                "publicationDate:string":"desc"
-            }
-        ]
+        }
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
-    return render_template('layout.html', message=a.text)
+    doc = database[a.get('_id')]
+    return render_template('layout.html', message=doc.document_url)
 
 @app.route('/scrape')
 def Scrape():
