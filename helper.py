@@ -52,9 +52,9 @@ def getHTML(json):
         html += '<tr id="concepts">Concepts:</tr>'
         for concept in concepts:
             html += '<tr><td>'
-            html += concept
+            html += concept['text']
             html += '</td><td>'
-            html += concepts[concept]
+            html += concept['relevance']
             html += '</td></tr>'
     html += "</table>"
     return html
