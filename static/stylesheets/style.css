@@ -139,3 +139,21 @@ pre {
 	margin: 0;
 }
 
+ul {
+    background-color: black;
+    opacity: 0.8;
+}
+
+li {
+    float: left;
+}
+
+ul a {
+    text-decoration: none;
+    margin: 100%;
+}
+
+ul a:hover {
+    text-decoration: none;
+}
+
