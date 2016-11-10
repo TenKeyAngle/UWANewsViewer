@@ -214,7 +214,7 @@ def testDB():
                 t[item.get('key')] +=  float(item.get('value'))
             else:
                 t[item.get('key')] =  float(item.get('value'))
-        relevance =  [float(i['value']) for i in t]
+        relevance =  [float(t[key]) for key in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"

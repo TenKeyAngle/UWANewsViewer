@@ -32,7 +32,9 @@ for item in r.get('rows'):
         t[item.get('key')] +=  float(item.get('value'))
     else:
         t[item.get('key')] =  float(item.get('value'))
-print(t)
+relevance =  [float(t[key]) for key in t]
+print(relevance)
+# print(t)
 # print(list)
 
 # end_point = '{0}/{1}'.format(cl_url, 'test/_design/des/_view/getrelevance')
