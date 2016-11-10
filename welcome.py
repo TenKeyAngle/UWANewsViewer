@@ -40,7 +40,7 @@ cl_password = vcap[0]['credentials']['password']
 cl_url         = vcap[0]['credentials']['url']
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 
-auth        = ( cl_username, cl_password )
+auth = ( cl_username, cl_password )
 
 s = DarkSolarizedStyle
 s.font_family = 'Arial'
@@ -56,10 +56,6 @@ s.tooltip_font_size *= 1.5
 
 try:
     client = Cloudant(cl_username, cl_password, url=cl_url)
-    #client = Cloudant('1a818337-f029-449a-8a03-d34f30877d1d-bluemix',
-    #                'b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0',
-    #url='https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix
-    # :b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com')
     client.connect()
     session = client.session()
     database = client['uwanews']
@@ -78,7 +74,7 @@ def Welcome():
        #     return render_template('index.html', form = form)
        # else:
        #     return redirect(url_for(GetUrl(), name=form.name.data))
-    return render_template('layout.html', message='sigh')
+    return render_template('index.html')
 	#return '<html><head></head><body>Works, why?</body></html>'
 @app.route('/jsontest')
 def JsonTest():
@@ -113,14 +109,6 @@ def SearchDB(word):
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
     return a.text
-    
-@app.route('/api/people')
-def GetPeople():
-    list = [
-        {'name': 'John', 'age': 28},
-        {'name': 'Bill', 'val': 26}
-    ]
-    return jsonify(results=list)
 
 @app.route('/geturl/<name>')
 def GetUrl(name):
