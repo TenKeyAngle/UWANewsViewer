@@ -19,6 +19,7 @@ import os
 import json
 import requests
 import csv
+import operator
 import pygal
 import test
 from test import LinkForm
@@ -214,13 +215,15 @@ def testDB():
                 t[item.get('key')] +=  float(item.get('value'))
             else:
                 t[item.get('key')] =  float(item.get('value'))
-        relevance =  [float(t[key]) for key in t]
         title = 'Most Relevant Topics'
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
     try:
+        sorted_t = sorted(t.items(), key=operator.itemgetter(1), reverse=True)
+        lists = sorted_t[:10]
+        relevance, labels = zip(*lists)
         bar_chart =  pygal.Bar(title=title, style=s)
         labels = ['%s' % str(i) for i in t]
         bar_chart.x_labels = labels
