@@ -145,6 +145,7 @@ ul {
     list-style-type: none;
     list-style-image: none;
     width: 100%;
+    background-color: black;
 }
 
 li {
@@ -155,7 +156,7 @@ li {
     display: inline;
 }
 
-ul a {
+li a {
     text-decoration: none;
     margin: 100%;
 }
