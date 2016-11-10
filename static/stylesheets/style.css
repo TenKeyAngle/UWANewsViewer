@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * This file was modified by Lidia Dokuchaeva
  */
 
 /* style.css
@@ -69,6 +71,11 @@ h1 {
 	color: #00aed1;
 }
 
+input {
+  height: 3em;
+  border-radius: 5px;
+  border-color: #00aed1;
+}
 
 table {
 	table-layout: fixed;

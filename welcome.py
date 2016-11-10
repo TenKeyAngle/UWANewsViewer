@@ -111,10 +111,25 @@ def SearchDB(word):
 @app.route('/geturl')
 def GetUrl():
     url = request.args.get("name")
-    # end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
-    # r = requests.get(end_point)
-    # r = r.json()
-    return render_template('layout.html', message=url)
+    j = {
+        "selector": {
+            "$text": url
+        },
+        "fields": [
+            "_id",
+            "_rev",
+            "url",
+            "title",
+            "publicationDate"
+        ],  "sort": [
+            {
+                "publicationDate:string":"desc"
+            }
+        ]
+    }
+    tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+    a = requests.post(tofind, json=j)
+    return render_template('layout.html', message=a.text)
 
 @app.route('/scrape')
 def Scrape():
