@@ -1,10 +1,6 @@
 <!-- Gotten from Flaskr Tutorial, modified by Lidia Dokuchaeva-->
-<!doctype html>
-    <head>
-        <title>Flaskr Layout</title>
-    <link rel="stylesheet" href="static/stylesheets/style.css">
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block body %}
         <div style="margin: 2em">
             <h1 style="margin: 2em;">Flaskr</h1>
             <div class="leftHalf">
@@ -12,5 +8,4 @@
             </div>
             <div class="rightHalf">{{ message }} </div>
         </div>
-    </body>
-</html>
+{% endblock %}
