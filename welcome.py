@@ -68,12 +68,11 @@ except Exception as ex:
 @app.route('/')
 def Welcome():
     form = LinkForm(request.args, csrf_enabled=False)
-    #form = LinkForm()
-    # if request.method == 'GET':
-    #     if form.validate() == False:
-    #         return render_template('index.html', form = form)
-    #     else:
-    #         return redirect(url_for('GetUrl', name=form.name.data))
+    if request.method == 'GET':
+        if form.validate() == False:
+            return render_template('index.html', form=form)
+        else:
+            return redirect(url_for('GetUrl'))
     return render_template('index.html', form=form)
 
 @app.route('/jsontest')
@@ -109,9 +108,9 @@ def SearchDB(word):
     a = requests.post(tofind, json=j)
     return a.text
 
-@app.route('/geturl/<name>')
-def GetUrl(name):
-    url = name
+@app.route('/geturl')
+def GetUrl():
+    url = request.args.get("name")
     # end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     # r = requests.get(end_point)
     # r = r.json()

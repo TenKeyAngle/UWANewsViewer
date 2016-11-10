@@ -8,7 +8,7 @@
         <tr style="height: 3em;"></tr>
         <tr>
             <td style="width: 100%;" colspan="2">
-                <form method="GET" action="{{ url_for('GetUrl', name='sigh') }}">
+                <form method="GET" action="{{ url_for('GetUrl') }}">
                     {{ form.name.label }} {{ form.name() }}
                     <input type="submit" value="Go">
                 </form>
