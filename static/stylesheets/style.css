@@ -82,9 +82,11 @@ h1 {
     width: 100%;
     text-align: center;
     color: #00aed1;
-    padding: 2em;
-    font-size: 3em;
+    padding: 1em;
+}
 
+#title, #date, #emotes, #concepts {
+    font-size: 2em;
 }
 
 #detailed {
