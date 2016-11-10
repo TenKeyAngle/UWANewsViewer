@@ -221,7 +221,7 @@ def testDB():
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
     try:
-        sorted_t = sorted(float(t.items()), key=operator.itemgetter(1), reverse=True)
+        sorted_t = sorted(t.items(), key=operator.itemgetter(1), reverse=True)
         lists = sorted_t[:10]
         relevance, labels = zip(*lists)
         bar_chart =  pygal.Bar(title=title, style=s)
