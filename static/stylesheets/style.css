@@ -140,12 +140,16 @@ pre {
 }
 
 ul {
-    background-color: black;
     opacity: 0.8;
+    list-style-type: none;
+    list-style-image: none;
 }
 
 li {
-    float: left;
+    background-color: black;
+    font-color: white;
+    decoration: none;
+    display: inline;
 }
 
 ul a {
