@@ -25,11 +25,43 @@ def alchemy_calls_left(api_key):
     return calls_left
 
 def getHTML(json):
-
-    return json
+    html = "<table class='results'>"
+    if 'title' in json:
+        html+= "<tr id='title'>{}</tr>".format(str(json['title']))
+    if 'url' in json:
+        html+= "<tr id='url'><a href='{}'>{}</a></tr>".format(json['url'], json['url'])
+    if 'publicationDate' in json:
+        date = json['publicationDate']['date']
+        year = date[:4]
+        date = date[4:8]
+        month = date[:2]
+        date = date[2:4]
+        day = date
+        html+="<tr id='date'>{0}/{1}/{2}</tr>".format(day, month, year)
+    if 'docEmotions' in json:
+        emotes = json['docEmotions']
+        html += '<tr id="emotes">Doc Emotions:</tr>'
+        for key in emotes:
+            html += '<tr><td>'
+            html += key
+            html += '</td><td>'
+            html += emotes[key]
+            html += '</td></tr>'
+    if 'concepts' in json:
+        concepts = json['concepts']
+        html += '<tr id="concepts">Concepts:</tr>'
+        for concept in concepts:
+            html += '<tr><td>'
+            html += concept
+            html += '</td><td>'
+            html += concepts[concept]
+            html += '</td></tr>'
+    html += "</table>"
+    return html
 
 l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
+
 
 j = {
     "selector": {
@@ -40,4 +72,4 @@ tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
 a = requests.post(tofind, json=j)
 a = a.json()
 a = a['docs'][0]
-print(a.get('_id'))
+print(getHTML(json=a))
