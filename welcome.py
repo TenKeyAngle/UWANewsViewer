@@ -179,11 +179,16 @@ def GetEmotions():
         t['joy'] += float(emotion.get('joy'))
         t['sadness'] += float(emotion.get('sadness'))
         t['anger'] += float(emotion.get('anger'))
-    title = 'Key Emotions'
-    pie_chart = pygal.Pie(title=title, style=s)
-    for key, value in t:
-        pie_chart.add(key, value)
-    return pie_chart.render_response()
+    try:
+        title = 'Key Emotions'
+        pie_chart = pygal.Pie(title=title, style=s)
+        for key, value in t:
+            pie_chart.add(key, value)
+        return pie_chart.render_response()
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "1: " + message
 
 @app.route('/mostrelevant.svg')
 def MostRelevant():
@@ -242,4 +247,4 @@ def getHTML():
     return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port))
+	app.run(host='0.0.0.0', port=int(port), debug=True)
