@@ -1,13 +1,5 @@
-<!doctype html>
-  <head>
-    <title>AlchemyAPI Access</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="static/stylesheets/style.css">
-  </head>
-
-  <body>
+{% extends "base.html" %}
+{% block body %}
     <table>
       <tr>
           <td><h1>Hi there!</h1></td>
@@ -17,7 +9,7 @@
         <tr>
             <td style="width: 100%;" colspan="2">
                 <form method="GET" action="{{ url_for('GetUrl', name='sigh') }}">
-                   {# {{ form.name.label }} {{ form.name() }} #}
+                    {{ form.name.label }} {{ form.name() }}
                     <input type="submit" value="Go">
                 </form>
             </td>
@@ -36,5 +28,4 @@
         <tr>
         </tr>
     </table>
-  </body>
-</html>
+{% endblock %}

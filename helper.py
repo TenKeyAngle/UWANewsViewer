@@ -9,13 +9,17 @@ from pygal.style import BlueStyle
 import requests
 import operator
 
+# Helper methods and classes for the main application
+
 class LinkForm(FlaskForm):
     name = StringField('URL', validators=[DataRequired()])
 
+# Function to determine how many AlchemyAPI calls are left
+# Gotten from https://gist.github.com/ianozsvald/4464247
 def alchemy_calls_left(api_key):
-# This URL tells us how many calls we have left in a day
+    # This URL tells us how many calls we have left in a day
     URL = "http://access.alchemyapi.com/calls/info/GetAPIKeyInfo?apikey={}&outputMode=json".format(api_key)
-# call AlchemyAPI, ask for JSON response
+    # call AlchemyAPI, ask for JSON response
     response = requests.get(URL)
     calls_left = response.json()
     return calls_left
