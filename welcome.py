@@ -77,7 +77,7 @@ def Welcome():
        #     return render_template('index.html', form = form)
        # else:
        #     return redirect(url_for(GetUrl(), name=form.name.data))
-    return render_template('index.html')
+    return render_template('layout.html', message='sigh')
 	#return '<html><head></head><body>Works, why?</body></html>'
 @app.route('/jsontest')
 def JsonTest():
@@ -222,7 +222,7 @@ def testDB():
         return "1: " + message
     try:
         bar_chart =  pygal.Bar(title=title, style=s)
-        labels = ['%s' % str(i['key']) for i in t]
+        labels = ['%s' % str(i) for i in t]
         bar_chart.x_labels = labels
         bar_chart.add('Relevance', relevance)
         return bar_chart.render_response()

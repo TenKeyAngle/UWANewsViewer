@@ -33,7 +33,7 @@ for item in r.get('rows'):
     else:
         t[item.get('key')] =  float(item.get('value'))
 relevance =  [float(t[key]) for key in t]
-print(relevance)
+# print(relevance)
 # print(t)
 # print(list)
 
