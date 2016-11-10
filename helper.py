@@ -24,7 +24,7 @@ def alchemy_calls_left(api_key):
     calls_left = response.json()
     return calls_left
 
-def getHTML(json):
+def getDocDeets(json):
     html = "<table class='results'>"
     if 'title' in json:
         html+= "<tr id='title'>{}</tr>".format(str(json['title']))
