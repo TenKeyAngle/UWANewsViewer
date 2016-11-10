@@ -67,7 +67,7 @@ except Exception as ex:
 
 @app.route('/')
 def Welcome():
-    form = LinkForm(request.args)
+    form = LinkForm(request.args, csrf_enabled=False)
     #form = LinkForm()
     # if request.method == 'GET':
     #     if form.validate() == False:
