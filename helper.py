@@ -69,7 +69,7 @@ j = {
     }
 }
 tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
-a = requests.post(tofind, json=j)
-a = a.json()
-a = a['docs'][0]
-print(getHTML(json=a))
+#a = requests.post(tofind, json=j)
+#a = a.json()
+#a = a['docs'][0]
+#print(getHTML(json=a))
