@@ -1,6 +1,6 @@
 import wtforms
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, validators
 from wtforms.validators import DataRequired
 import json
 import csv
@@ -12,7 +12,7 @@ import operator
 # Helper methods and classes for the main application
 
 class LinkForm(FlaskForm):
-    name = StringField('URL', validators=[DataRequired()])
+    name = StringField('URL', validators=[validators.input_required()])
 
 # Function to determine how many AlchemyAPI calls are left
 # Gotten from https://gist.github.com/ianozsvald/4464247
