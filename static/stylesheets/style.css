@@ -81,8 +81,9 @@ h1 {
 #title, #url, #date, #emotes, #concepts {
     width: 100%;
     text-align: center;
-    color: 	color: #00aed1;
+    color: #00aed1;
     padding: 2em;
+
 }
 
 .results {
@@ -103,6 +104,11 @@ th {
 
 th, td {
 	text-align: center;
+}
+
+td a {
+    margin: 100%;
+    text-decoration: none;
 }
 
 .env-var {
