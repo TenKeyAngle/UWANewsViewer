@@ -163,7 +163,27 @@ def create_db(db):
 
 @app.route('/getemotions.svg')
 def GetEmotions():
-    return "nothing"
+    end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getemotions')
+    r = requests.get(end_point)
+    r = r.json()
+    t = {}
+    t['disgust'] = 0
+    t['fear'] = 0
+    t['joy'] = 0
+    t['sadness'] = 0
+    t['anger'] = 0
+    for item1 in r.get('rows'):
+        emotion = item1.get('value')
+        t['disgust'] += float(emotion.get('disgust'))
+        t['fear'] += float(emotion.get('fear'))
+        t['joy'] += float(emotion.get('joy'))
+        t['sadness'] += float(emotion.get('sadness'))
+        t['anger'] += float(emotion.get('anger'))
+    title = 'Key Emotions'
+    pie_chart = pygal.Pie(title=title, style=s)
+    for key, value in t:
+        pie_chart.add(key, value)
+    return pie_chart.render_response()
 
 @app.route('/mostrelevant.svg')
 def MostRelevant():
@@ -183,9 +203,8 @@ def MostRelevant():
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
     try:
-        sorted_t = sorted(t.items(), key=operator.itemgetter(1), reverse=True)
-        lists = sorted_t[:10]
-        relevance, labels = zip(*lists)
+        relevance =  [float(t[key]) for key in t]
+        labels = ['%s' % str(i) for i in t]
         bar_chart =  pygal.Bar(title=title, style=s)
         bar_chart.x_labels = labels
         bar_chart.add('Relevance', relevance)
