@@ -71,7 +71,7 @@ h1 {
 	color: #00aed1;
 }
 
-input {
+.searchbar {
   height: 3em;
   border-radius: 5px;
   border-color: #00aed1;
