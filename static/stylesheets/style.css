@@ -83,7 +83,12 @@ h1 {
     text-align: center;
     color: #00aed1;
     padding: 2em;
+    font-size: 3em;
 
+}
+
+#detailed {
+    margin-bottom: 0;
 }
 
 .results {
