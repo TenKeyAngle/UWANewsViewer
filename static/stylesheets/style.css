@@ -100,7 +100,8 @@ h1 {
 }
 
 #url {
-    font-size: 0.5em;
+    font-size: 1em;
+    font-color: white;
 }
 
 #detailed {
@@ -143,9 +144,11 @@ ul {
     opacity: 0.8;
     list-style-type: none;
     list-style-image: none;
+    width: 100%;
 }
 
 li {
+    width: 33%;
     background-color: black;
     font-color: white;
     decoration: none;
