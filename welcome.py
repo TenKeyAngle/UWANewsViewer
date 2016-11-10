@@ -25,7 +25,7 @@ import helper
 from helper import LinkForm, alchemy_calls_left, getDocDeets
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
-from flask import Flask, jsonify, url_for, request, render_template, redirect
+from flask import Flask, jsonify, url_for, request, render_template, redirect, Markup
 from cloudant import cloudant
 from cloudant.client import Cloudant
 from cloudant.document import Document
@@ -121,7 +121,7 @@ def GetUrl():
     a = a.json()
     a = a['docs'][0]
     doc = database[a.get('_id')]
-    return render_template('layout.html', message=getDocDeets(json=doc))
+    return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
 
 @app.route('/scrape')
 def Scrape():
