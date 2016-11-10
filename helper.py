@@ -12,7 +12,7 @@ import operator
 # Helper methods and classes for the main application
 
 class LinkForm(FlaskForm):
-    name = StringField('URL', validators=[validators.input_required()])
+    name = StringField('Search by News URL', validators=[validators.input_required()])
 
 # Function to determine how many AlchemyAPI calls are left
 # Gotten from https://gist.github.com/ianozsvald/4464247
