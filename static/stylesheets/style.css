@@ -78,6 +78,17 @@ h1 {
   border-color: #00aed1;
 }
 
+#title, #url, #date, #emotes, #concepts {
+    width: 100%;
+    text-align: center;
+    color: 	color: #00aed1;
+    padding: 2em;
+}
+
+.results {
+    width: 100%;
+}
+
 table {
 	table-layout: fixed;
 	width: 800px;
@@ -91,7 +102,7 @@ th {
 }
 
 th, td {
-	text-align: left;
+	text-align: center;
 }
 
 .env-var {
