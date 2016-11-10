@@ -113,13 +113,14 @@ def GetUrl():
     url = request.args.get("name")
     j = {
         "selector": {
-            "$text": url
+            "url": url
         }
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
     a = a.json()
-    doc = database[a['_id']]
+    a = a['docs'][0]
+    doc = database[a.get('_id')]
     return render_template('layout.html', message=doc.document_url)
 
 @app.route('/scrape')
