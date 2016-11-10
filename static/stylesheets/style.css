@@ -28,6 +28,10 @@ body, html {
 	color: #ffffff;
 }
 
+th, td {
+	text-align: left;
+}
+
 a {
 	text-decoration: none;
 	color: #00aed1;
@@ -117,10 +121,6 @@ table {
 
 th {
 	border-bottom: 1px solid #000;
-}
-
-th, td {
-	text-align: center;
 }
 
 td a {
