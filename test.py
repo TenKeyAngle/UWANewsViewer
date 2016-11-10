@@ -20,6 +20,24 @@ def alchemy_calls_left(api_key):
     calls_left = response.json()
     return calls_left
 
+cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
+l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+print(l)
+
+end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getrelevance')
+r = requests.get(end_point)
+r = r.json()
+t = {}
+for item in r.get('rows'):
+    if item.get('key') in t:
+        t[item.get('key')] +=  float(item.get('value'))
+    else:
+        t[item.get('key')] =  float(item.get('value'))
+sorted_t = sorted(t.items(), key=operator.itemgetter(1), reverse=True)
+lists = sorted_t[:10]
+relevance, labels = zip(*lists)
+print(relevance)
+print(labels)
 # print(relevance)
 # print(t)
 # print(list)
