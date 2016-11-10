@@ -89,6 +89,14 @@ h1 {
     font-size: 2em;
 }
 
+#title {
+    margin-top: 0;
+}
+
+#url {
+    font-size: 0.5em;
+}
+
 #detailed {
     margin-bottom: 0;
 }

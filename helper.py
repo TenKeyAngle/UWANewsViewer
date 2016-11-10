@@ -42,20 +42,20 @@ def getDocDeets(json):
         emotes = json['docEmotions']
         html += "<tr><td colspan='2' id='emotes'>Doc Emotions:</td></tr>"
         for key in emotes:
-            html += '<tr><td></td><td>'
+            html += '<tr><td><'
             html += key
-            html += '</td><td>'
+            html += '</td><td colspan="3">'
             html += emotes[key]
             html += '</td><td></td></tr>'
     if 'concepts' in json:
         concepts = json['concepts']
         html += "<tr><td colspan='2' id='concepts'>Concepts:</td></tr>"
         for concept in concepts:
-            html += '<tr><td></td><td>'
+            html += '<tr><td>'
             html += concept['text']
-            html += '</td><td>'
+            html += '</td><td colspan="3">'
             html += concept['relevance']
-            html += '</td><td></td></tr>'
+            html += '</td></tr>'
     html += "</table>"
     return html
 
