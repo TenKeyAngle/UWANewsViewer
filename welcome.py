@@ -21,8 +21,8 @@ import requests
 import csv
 import operator
 import pygal
-import test
-from test import LinkForm
+import helper
+from helper import LinkForm, alchemy_calls_left
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for, request, render_template, redirect
@@ -31,8 +31,8 @@ from cloudant.client import Cloudant
 from cloudant.document import Document
 
 app = Flask(__name__)
-
-alchemy = AlchemyLanguageV1(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28'
+alchemy = AlchemyLanguageV1(api_key=api_key)
 vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
 cl_username = vcap[0]['credentials']['username']
@@ -75,7 +75,7 @@ def Welcome():
        # else:
        #     return redirect(url_for(GetUrl(), name=form.name.data))
     return render_template('index.html')
-	#return '<html><head></head><body>Works, why?</body></html>'
+
 @app.route('/jsontest')
 def JsonTest():
     j = {
@@ -85,7 +85,6 @@ def JsonTest():
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
-    # return "<html><body>{0}</body></html>".format(a.text)
     return a.text
     
 @app.route('/keyword/<word>')
@@ -153,34 +152,9 @@ def Scrape():
         t.append(item.get('value'))
     return jsonify(results=t)
 
-@app.route('/api/people/<name>')
-def SayHello(name):
-    message = {
-        'message': 'Hello ' + name
-    }
-    return jsonify(results=message)
-
 @app.route('/apikey')
-def alchemy_calls_left():
-    api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28'
-    # This URL tells us how many calls we have left in a day
-    URL = "http://access.alchemyapi.com/calls/info/GetAPIKeyInfo?apikey={}&outputMode=json".format(api_key)
-    # call AlchemyAPI, ask for JSON response
-    response = requests.get(URL)
-    calls_left = response.json()
-    return jsonify(calls_left)
-
-# Testing Alchemy Connection
-@app.route('/alchemytest')
-def ConfirmConnection():
-    key = os.environ.get('alchemyKey')
-    return json.dumps(alchemy.targeted_sentiment(text='I love cats! Dogs are smelly.', targets=['cats', 'dogs'],
-                                                 language='english'), indent=2)
-@app.route('/alchemy')
-def AnalyzeDoc():
-    txt='http://www.news.uwa.edu.au/201610289155/international/fossilised-dinosaur-brain-tissue-identified-first-time'
-    combined_operations = ['page-image', 'entity', 'keyword', 'title', 'author', 'taxonomy', 'concept', 'doc-emotion']
-    return json.dumps(alchemy.combined(url=txt, extract=combined_operations), indent=2)
+def apiKey():
+    return jsonify(alchemy_calls_left(api_key=api_key))
 
 @app.route('/createdb/<db>')
 def create_db(db):
@@ -191,8 +165,8 @@ def create_db(db):
 def GetEmotions():
     return "nothing"
 
-@app.route('/testdb.svg')
-def testDB():
+@app.route('/mostrelevant.svg')
+def MostRelevant():
     try:
         end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getrelevance')
         r = requests.get(end_point)
@@ -233,19 +207,19 @@ def getHTML():
                      <link rel="stylesheet" href="static/stylesheets/style.css">
                    </head>
                       <body>
-                      	<div class='leftHalf'>
+                      	<div class='rightHalf'>
                         <figure>
                          <embed type="image/svg+xml" src="{0}" />
                          </figure>
                          </div>
-                         <div class='rightHalf'>
+                         <div class='leftHalf'>
                          <figure>
                          <embed type="image/svg+xml" src="{1}" />
                          </figure>
                          </div>
                      </body>
                 </html>
-                """.format(url_for('testDB'), url_for('GetEmotions'))
+                """.format(url_for('MostRelevant'), url_for('GetEmotions'))
     return html
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
