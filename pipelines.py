@@ -39,6 +39,6 @@ class URLPipeline(object):
                 #     print("Doc not created: {0}".format(item['url']))
             return item
         else:
-            raise DropItem("Url is " % item['url'])
+            raise DropItem("Url is none")
 
 
