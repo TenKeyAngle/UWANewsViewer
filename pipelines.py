@@ -18,7 +18,6 @@ class URLPipeline(object):
         end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
         r = requests.get(end_point)
         r = r.json()
-        self.t = []
         for item in r.get('rows'):
                 self.t.append(item.get('value'))
 
