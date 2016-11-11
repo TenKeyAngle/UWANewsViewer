@@ -120,7 +120,7 @@ def GetUrl():
     a = requests.post(tofind, json=j)
     a = a.json()
     a = a['docs']
-    if len(a) > 0:
+    if len(a) == 0:
         return render_template('layout.html', message="No documents found.")
     else:
         doc = database[a[0].get('_id')]
