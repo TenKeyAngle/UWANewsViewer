@@ -8,6 +8,7 @@ from welcome import api_key, cl_url, cl_username, cl_password
 
 
 class URLPipeline(object):
+    t = []
 
     def open_spider(self, spider):
         self.alchemy = alchemy = AlchemyLanguageV1(api_key=api_key)
@@ -19,11 +20,12 @@ class URLPipeline(object):
         r = r.json()
         self.t = []
         for item in r.get('rows'):
-            self.t.append(item.get('value'))
+                self.t.append(item.get('value'))
 
     def process_item(self, item, spider):
-        combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
-        al = alchemy_calls_left(api_key=api_key)
+        #combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations',
+        # 'concepts', 'doc-emotion']
+        #al = alchemy_calls_left(api_key=api_key)
         #if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
             # If limit surpassed, return a string letting user know
             #str = 'AlchemyAPI calls depleted for today: consumed.{}'.format(al['consumedDailyTransactions'])
