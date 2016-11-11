@@ -66,6 +66,14 @@ def getDocDeets(json):
     html += "</table>"
     return html
 
+def getSearchResults(json):
+    html = "<table class='results'>"
+    for item in json:
+        html += "<tr><td>{0}</td></tr>".format(item['title'])
+        html += "<tr><td>{0}</td></tr>".format(item['url'])
+    html += "</table>"
+    return html
+
 l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 

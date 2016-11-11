@@ -22,7 +22,7 @@ import csv
 import operator
 import pygal
 import helper
-from helper import LinkForm, alchemy_calls_left, getDocDeets, JForm
+from helper import LinkForm, alchemy_calls_left, getDocDeets, JForm, getSearchResults
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for, request, render_template, redirect, Markup
@@ -106,7 +106,11 @@ def SearchDB(word):
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
-    return a.text
+    a = a['docs']
+    if len(a) == 0:
+        return render_template('layout.html', message="No documents found.")
+    else:
+        return render_template('layout.html', message=Markup(getSearchResults(json=a)))
 
 @app.route('/geturl')
 def GetUrl():
@@ -231,15 +235,15 @@ def MostRelevant():
 @app.route('/advancedsearch')
 def AdvancedSearch():
     form = JForm(request.form, csrf_enabled=False)
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method=='GET':
         if form.validate() == False:
             return render_template('advancedsearch.html', form=form)
         else:
-            return redirect(url_for('GetUrl'))
+            return redirect(url_for('Advanced'), request=request)
     return render_template('advancedsearch.html', form=form)
 
 @app.route('/advanced')
-def Advanced():
+def Advanced(request):
     url = request.form.get("text")
     j = json.loads(url)
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
