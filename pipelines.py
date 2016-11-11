@@ -1,12 +1,37 @@
+import requests
+from cloudant import Cloudant
+from flask import jsonify
+from watson_developer_cloud import AlchemyLanguageV1
+
+from helper import alchemy_calls_left
+from welcome import api_key, cl_url, cl_username, cl_password
+
+
 class URLPipeline(object):
+
     def open_spider(self, spider):
-        self.file = open('items/news2.csv', 'w')
-
-    def close_spider(self, spider):
-        self.file.close()
-
+        self.alchemy = alchemy = AlchemyLanguageV1(api_key=api_key)
+        client = Cloudant(cl_username, cl_password, url=cl_url)
+        client.connect()
+        self.database = client['uwanews']
+        end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
+        r = requests.get(end_point)
+        r = r.json()
+        self.t = []
+        for item in r.get('rows'):
+            self.t.append(item.get('value'))
 
     def process_item(self, item, spider):
+        combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
+        al = alchemy_calls_left(api_key=api_key)
+        if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
+            # If limit surpassed, return a string letting user know
+            return jsonify(al)
         if not item['url'] == None:
-            self.file.write(item)
+            # If item already in database, ignore it - if not, add analysis results to database
+            if not item['url'] in self.t:
+                data = self.alchemy.combined(url=item, extract=combined_operations)
+                doc = self.database.create_document(data)
+                if not doc.exists():
+                    return "Doc not created: " + jsonify(results=data)
             return item

@@ -163,39 +163,39 @@ def GetUrl():
 # The method that analyzes URLs from the CSV file - should be run automatically
 @app.route('/scrape')
 def Scrape():
-    # Check that limit not surpassed
-    al = alchemy_calls_left(api_key=api_key)
-    if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
-        # If limit surpassed, return a string letting user know
-        return jsonify(al)
-    # If limint not surpassed, iterate through news.csv to get URLs
-    f = open('items/news.csv', 'r')
-    list = []
-    try:
-        reader = csv.reader(f)
-        for row in reader:
-            if row[0] != 'url' and row[0] != '':
-                link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
-                list.append(link)
-    except Exception as ex:
-        template = "An exception of type {0} occured. Arguments:\n{1!r}"
-        message = template.format(type(ex).__name__, ex.args)
-        return message
-    # Initialize parameters for analysis
-    combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
-    end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
-    r = requests.get(end_point)
-    r = r.json()
-    t = []
-    for item in r.get('rows'):
-        t.append(item.get('value'))
-    for i in list:
-        # If item already in database, ignore it - if not, add analysis results to database
-        if not i in t:
-            data = alchemy.combined(url=i, extract=combined_operations)
-            doc = database.create_document(data)
-            if not doc.exists():
-                return "Doc not created: " + jsonify(results=data)
+    # # Check that limit not surpassed
+    # al = alchemy_calls_left(api_key=api_key)
+    # if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
+    #     # If limit surpassed, return a string letting user know
+    #     return jsonify(al)
+    # # If limint not surpassed, iterate through news.csv to get URLs
+    # f = open('items/news.csv', 'r')
+    # list = []
+    # try:
+    #     reader = csv.reader(f)
+    #     for row in reader:
+    #         if row[0] != 'url' and row[0] != '':
+    #             link = 'http://www.news.uwa.edu.au{0}'.format(row[0])
+    #             list.append(link)
+    # except Exception as ex:
+    #     template = "An exception of type {0} occured. Arguments:\n{1!r}"
+    #     message = template.format(type(ex).__name__, ex.args)
+    #     return message
+    # # Initialize parameters for analysis
+    # combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
+    # end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
+    # r = requests.get(end_point)
+    # r = r.json()
+    # t = []
+    # for item in r.get('rows'):
+    #     t.append(item.get('value'))
+    # for i in list:
+    #     # If item already in database, ignore it - if not, add analysis results to database
+    #     if not i in t:
+    #         data = alchemy.combined(url=i, extract=combined_operations)
+    #         doc = database.create_document(data)
+    #         if not doc.exists():
+    #             return "Doc not created: " + jsonify(results=data)
     end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     r = requests.get(end_point)
     r = r.json()
