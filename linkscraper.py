@@ -7,7 +7,7 @@ from scrapy.crawler import CrawlerProcess
 class NewsSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
-            '21331893.URLPipeline': 400
+            'URLPipeline': 400
         }
     }
     name = 'newsspider'
