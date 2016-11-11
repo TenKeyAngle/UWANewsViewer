@@ -106,6 +106,7 @@ def SearchDB(word):
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
+    a = a.json()
     a = a['docs']
     if len(a) == 0:
         return render_template('layout.html', message="No documents found.")
@@ -124,7 +125,7 @@ def GetUrl():
     a = requests.post(tofind, json=j)
     a = a.json()
     a = a['docs']
-    if len(a) == 0:
+    if not '_id' in a:
         return render_template('layout.html', message="No documents found.")
     else:
         doc = database[a[0].get('_id')]
