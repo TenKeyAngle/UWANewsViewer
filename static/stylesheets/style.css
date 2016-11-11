@@ -35,8 +35,6 @@ th, td {
 a {
 	text-decoration: none;
 	color: #00aed1;
-	height: 100%;
-	width: 100%;
 }
 
 a:hover {
@@ -88,6 +86,8 @@ h1 {
    border-radius-top-right: 3em;
    border-radius-bottom-right: 3em;
    background-color: #00aed1;
+   height: 3em;
+   width: 100%;
 }
 
 #title, #url, #date, #emotes, #concepts {
