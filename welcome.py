@@ -285,12 +285,27 @@ def AdvancedSearch():
 # Process data from the advanced search
 @app.route('/advanced', methods=['GET', 'POST'])
 def Advanced():
-    url = request.form.get("text")
-    j = json.loads(url)
-    tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
-    a = requests.post(tofind, json=j)
-    a = a.json()
-    return a
+    try:
+        url = request.form.get("text")
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "1: " + message
+    try:
+        j = json.loads(url)
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "2: " + message
+    try:
+        tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+        a = requests.post(tofind, json=j)
+        a = a.json()
+        return a
+    except Exception as ex:
+        template = "An exception of type {0} occured. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        return "3: " + message
     # a = a['docs'][0]
 
 # display results of all the documents

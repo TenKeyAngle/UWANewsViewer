@@ -31,8 +31,8 @@ class URLPipeline(object):
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
             # If limit surpassed, return a string letting user know
             str = 'AlchemyAPI calls depleted for today: consumed.{}'.format(al['consumedDailyTransactions'])
-            crawler.engine.close_spider(spider, 'AlchemyAPI used too much')
-            sys.exit("AlchemyAPI used too much")
+            # crawler.engine.close_spider(spider, 'AlchemyAPI used too much')
+            sys.exit(str)
             raise CloseSpider(str)
         if not item['url'] == None:
             # If item already in database, ignore it - if not, add analysis results to database

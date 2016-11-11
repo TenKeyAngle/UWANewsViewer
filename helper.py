@@ -15,7 +15,9 @@ class LinkForm(FlaskForm):
 
 # Form search for JSON
 class JForm(FlaskForm):
-    text = TextAreaField('Search by JSON', validators=[validators.input_required()], default='       Search by JSON')
+    str = '{ "selector" : { "url" : "http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west' \
+          '-coast-much-earlier-previously-thought" } }'
+    text = TextAreaField('Search by JSON', validators=[validators.input_required()], default=str)
 
 # Function to determine how many AlchemyAPI calls are left
 # Gotten from https://gist.github.com/ianozsvald/4464247
