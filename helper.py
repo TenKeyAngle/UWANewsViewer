@@ -11,7 +11,7 @@ import csv
 
 # Form for searching by URL and by keywords
 class LinkForm(FlaskForm):
-    name = StringField('Search News', validators=[validators.input_required()], default='     Search by URL')
+    name = StringField('Search News', validators=[validators.input_required()], default='     Search by URL or by keyword')
 
 # Form search for JSON
 class JForm(FlaskForm):
