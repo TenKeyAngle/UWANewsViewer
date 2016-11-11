@@ -133,6 +133,9 @@ def GetUrl():
 
 @app.route('/scrape')
 def Scrape():
+    al = alchemy_calls_left(api_key=api_key)
+    if not al['consumedDailyTransaction'] < al['dailyTransactionLimit']:
+        return jsonify(al)
     f = open('items/news.csv', 'r')
     list = []
     try:
