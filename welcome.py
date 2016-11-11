@@ -85,16 +85,10 @@ def Welcome():
             return redirect(url_for('GetUrl'))
     return render_template('index.html', form=form)
 
-# A test page that shows how the JSON fetch works
+# Page that scrapes data from the site and uploads it to the database - should be run automatically
 @app.route('/scrape')
 def Scrape():
-    # j = {
-    #     "selector": {
-    #         "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
-    #     }
-    # }
-    # tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
-    # a = requests.post(tofind, json=j)
+    #runs the spider
     command = "scrapy runspider linkscraper.py"
     return_code = os.system(command)
     if return_code == 0:
@@ -160,7 +154,7 @@ def GetUrl():
         # If no documents found, let user know
         return render_template('layout.html', message="No documents found.")
 
-# The method that analyzes URLs from the CSV file - should be run automatically
+# Method of JSON test - old method for scraping, kept in case it is needed
 @app.route('/jsontest')
 def JSONtest():
     # # Check that limit not surpassed
