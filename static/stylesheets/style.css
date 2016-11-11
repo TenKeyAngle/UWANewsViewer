@@ -95,6 +95,12 @@ h1 {
    height: 5em;
 }
 
+.footer {
+    text-align: center;
+    font-color: white;
+    font-size: 0.5em;
+}
+
 #title, #url, #date, #emotes, #concepts {
     width: 100%;
     text-align: center;
