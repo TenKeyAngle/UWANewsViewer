@@ -36,6 +36,17 @@ needed, going to the Bluemix Dashboard-->21331893-->Runtime-->Environment Variab
 variables used, and change the alchemyKey one to the key you have. In that view, you can also see the details of the
 services currently bound to the app in VCAP_SERVICES, and potentially bind an AlchemyAPI service as well.
 
+Additionaly, an IBM Workload Scheduler is bound to the service. Currently, it is set to send a GET request to
+http://21331893.au-syd.mybluemix.net/scrape, which adds data to the database. In order to fill up the Cloudant
+database, either schedule a similar call or go manually to the page. (Note: if the allocated amount of calls per day
+is hit, an error is thrown. That is expected behavior, and should not be cause for alarm).
+
+The workflow for this project goes like this:
+* Data is scraped from news.uwa.edu.au: links and article titles are put into items/news.csv
+* When http://21331893.au-syd.mybluemix.net/scrape is accessed, usually by an automated process, data from the CSV is
+ read, and the program calls AlchemyLanguage to analyze each article and put the document into the database.
+* The users can then data from the user interface, which queries the database, or by accessing the database directly
+
 ## Requirements
 ### Functional Requirements
  - 
@@ -44,8 +55,9 @@ services currently bound to the app in VCAP_SERVICES, and potentially bind an Al
  - Availability: the database must retrieve data quickly, to reduce user wait
  - Flexibility: the database should be able to accomodate a large variety of queries
  - Usability: the website must be user-friendly and easy to navigate
+ - Room for Growth: the project should provide a framework that can be modified and extended by other developers
 
-## Tutorials Used
+## Resources Used
 - [Pygal and Flask Integration](https://www.google.com.au/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjymPrbxp3QAhXNNpQKHRLqDScQFggcMAA&url=http%3A%2F%2Fwww.blog.pythonlibrary.org%2F2015%2F04%2F16%2Fusing-pygal-graphs-in-flask%2F&usg=AFQjCNFKWy6PF9MOshjGlIs8BugYV8RIxQ)
 - [Cloudant Query Tutorial](https://cloudant.com/using-cloudant-query-tutorial/)
 - [Flask Tutorial](http://flask.pocoo.org/docs/0.11/tutorial/)
