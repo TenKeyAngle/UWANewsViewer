@@ -278,10 +278,10 @@ def MostRelevant():
         return "2: " + message
 
 # Advanced search, where users put in JSON
-@app.route('/advancedsearch')
+@app.route('/advancedsearch', methods=['POST'])
 def AdvancedSearch():
     form = JForm(request.form, csrf_enabled=False)
-    if request.method == 'POST' or request.method=='GET':
+    if request.method == 'POST':
         if form.validate() == False:
             return render_template('advancedsearch.html', form=form)
         else:
