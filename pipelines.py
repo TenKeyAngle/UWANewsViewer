@@ -34,10 +34,10 @@ class URLPipeline(object):
             url = "http://news.uwa.edu.au/{}".format(item['url'])
             if not url in self.t:
                 print("This should be happening for ones that do not exist")
-                #data = self.alchemy.combined(url=item, extract=combined_operations)
-                #doc = self.database.create_document(data)
-                #if not doc.exists():
-                 #   print("Doc not created: {0}".format(item['url']))
+                data = self.alchemy.combined(url=item, extract=combined_operations)
+                doc = self.database.create_document(data)
+                if not doc.exists():
+                    print("Doc not created: {0}".format(item['url']))
             return item
         else:
             raise DropItem("Url is none")
