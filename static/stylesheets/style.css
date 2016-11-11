@@ -157,7 +157,7 @@ ul, #navbar {
     background-color: black;
 }
 
-li, #navthings {
+li, .navthings {
     width: 33%;
     background-color: black;
     font-color: white;
@@ -165,11 +165,11 @@ li, #navthings {
     display: inline;
 }
 
-li a, #navthings {
+li a, .navthings {
     text-decoration: none;
 }
 
-li a:hover, #navlink {
+li a:hover, .navlink {
     text-decoration: none;
 }
 
