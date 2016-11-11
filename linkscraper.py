@@ -8,18 +8,18 @@ class NewsSpider(scrapy.Spider):
     start_urls = ['http://www.news.uwa.edu.au/']
     list = []
     def parse(self, response):
-        f = open('news.csv', 'rb')
-        last = ""
-        try:
-            reader = csv.reader(f)
-            rownum = 0
-            for row in reader:
-                if rownum == 3:
-                    last = row[0]
-                    break
-                rownum += 1
-        finally:
-            f.close()
+        # f = open('news.csv', 'r')
+        # last = ""
+        # try:
+        #     reader = csv.reader(f)
+        #     rownum = 0
+        #     for row in reader:
+        #         if rownum == 3:
+        #             last = row[0]
+        #             break
+        #         rownum += 1
+        # finally:
+        #     f.close()
         for title in response.css('h3'):
             current = title.css('a ::attr(href)').extract_first()
             if current == last:
