@@ -123,7 +123,7 @@ def GetUrl():
     if len(a) > 0:
         return render_template('layout.html', message="No documents found.")
     else:
-        doc = database[a.get('_id')]
+        doc = database[a[0].get('_id')]
     return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
 
 @app.route('/scrape')
