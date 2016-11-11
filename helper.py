@@ -3,6 +3,7 @@ from flask import url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, validators
 import requests
+import csv
 
 # Helper methods and classes for the main application
 
@@ -76,7 +77,24 @@ def getSearchResults(json):
     html += "</table>"
     return html
 
-l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
+def cleanCSV():
+    f = open('items/news.csv', 'r+')
+    output = open('items/news1.csv', 'w')
+    reader = csv.reader(f)
+    writer = csv.writer(output)
+    for row in reader:
+        if row[0] != 'url' and row[0] != '':
+            # reader.deleterow(row)
+            writer.writerow(row)
+    f.close()
+    output.close()
+
+def appendCSV():
+    f = open('items/news1.csv', 'r+')
+    writer = csv.writer(f)
+    writer.writerow(['Does', 'work?'])
+
+#l = alchemy_calls_left(api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28')
 cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
 
 
@@ -86,6 +104,8 @@ j = {
     }
 }
 tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+#cleanCSV()
+#appendCSV()
 #a = requests.post(tofind, json=j)
 #a = a.json()
 #a = a['docs'][0]

@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Modified by Lidia Dokuchaeva
+# This project was modified by Lidia Dokuchaeva - 21331893
+# 11/11/2016
 #
 
 import os
@@ -31,6 +32,8 @@ from cloudant.client import Cloudant
 from cloudant.document import Document
 
 app = Flask(__name__)
+
+#Connect required services
 api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28'
 alchemy = AlchemyLanguageV1(api_key=api_key)
 vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
@@ -42,6 +45,7 @@ cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4
 
 auth = ( cl_username, cl_password )
 
+# Modifies Style for Graphs
 s = DarkSolarizedStyle
 s.font_family = 'Arial'
 s.background = '#3b4b54'
@@ -54,6 +58,7 @@ s.title_font_size *= 1.5
 s.value_font_size *= 1.5
 s.tooltip_font_size *= 1.5
 
+#Connect to Cloudant and the dtabase in question
 try:
     client = Cloudant(cl_username, cl_password, url=cl_url)
     client.connect()
@@ -65,16 +70,22 @@ except Exception as ex:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(ex).__name__, ex.args)
 
+# Begin App
+
+# Return main page, with URL search
 @app.route('/')
 def Welcome():
     form = LinkForm(request.args, csrf_enabled=False)
     if request.method == 'GET':
         if form.validate() == False:
+            # If form is not valid, load the form
             return render_template('index.html', form=form)
         else:
+            # If form is valid, get results
             return redirect(url_for('GetUrl'))
     return render_template('index.html', form=form)
 
+# A test page that shows how the JSON fetch works
 @app.route('/jsontest')
 def JsonTest():
     j = {
@@ -90,34 +101,42 @@ def JsonTest():
         return "Success"
     else:
         return "Failure: check logs for more details."
-    
+
+# Search database by keyword
 @app.route('/keyword/<word>')
 def SearchDB(word):
     j = {
       "selector": {
          "$text": word
        },
+        # Which fields to include in the results
        "fields": [
          "_id",
          "_rev",
          "url",
          "title",
       "publicationDate"
-     ],  "sort": [
+     ],
+        # Sort chronologically
+        "sort": [
      { 
         "publicationDate:string":"desc"
       }
      ]
     }
+    # use RESTful API to get results
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
     a = a.json()
     a = a['docs']
     if len(a) == 0:
+        # If no documents match criteria, inform user
         return render_template('layout.html', message="No documents found.")
     else:
+        # If documents match criteria, display them to user
         return render_template('layout.html', message=Markup(getSearchResults(json=a)))
 
+# Get details for a specific news article
 @app.route('/geturl')
 def GetUrl():
     url = request.args.get("name")
@@ -126,21 +145,28 @@ def GetUrl():
             "url": url
         }
     }
+    # use RESTful API to get results
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
     a = a.json()
     a = a['docs']
     try:
+        # If documents found, display results
         doc = database[a[0].get('_id')]
         return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
     except:
+        # If no documents found, let user know
         return render_template('layout.html', message="No documents found.")
 
+# The method that analyzes URLs from the CSV file - should be run automatically
 @app.route('/scrape')
 def Scrape():
+    # Check that limit not surpassed
     al = alchemy_calls_left(api_key=api_key)
     if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
+        # If limit surpassed, return a string letting user know
         return jsonify(al)
+    # If limint not surpassed, iterate through news.csv to get URLs
     f = open('items/news.csv', 'r')
     list = []
     try:
@@ -153,6 +179,7 @@ def Scrape():
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return message
+    # Initialize parameters for analysis
     combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
     end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getlinks')
     r = requests.get(end_point)
@@ -161,6 +188,7 @@ def Scrape():
     for item in r.get('rows'):
         t.append(item.get('value'))
     for i in list:
+        # If item already in database, ignore it - if not, add analysis results to database
         if not i in t:
             data = alchemy.combined(url=i, extract=combined_operations)
             doc = database.create_document(data)
