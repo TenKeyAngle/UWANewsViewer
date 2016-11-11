@@ -3,6 +3,7 @@ from cloudant import Cloudant
 from flask import jsonify
 from scrapy.exceptions import DropItem, CloseSpider
 from watson_developer_cloud import AlchemyLanguageV1
+import scrapy.extensions.closespider.CloseSpider
 
 from helper import alchemy_calls_left
 from welcome import api_key, cl_url, cl_username, cl_password
@@ -23,7 +24,6 @@ class URLPipeline(object):
             self.t.append(item.get('value'))
 
     def process_item(self, item, spider):
-        raise CloseSpider(reason='test')
         combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
         al = alchemy_calls_left(api_key=api_key)
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:

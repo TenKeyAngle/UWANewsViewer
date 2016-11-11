@@ -86,8 +86,8 @@ def Welcome():
     return render_template('index.html', form=form)
 
 # A test page that shows how the JSON fetch works
-@app.route('/jsontest')
-def JsonTest():
+@app.route('/scrape')
+def Scrape():
     # j = {
     #     "selector": {
     #         "url":"http://www.news.uwa.edu.au/201611049179/aboriginal-people-inhabited-was-mid-west-coast-much-earlier-previously-thought"
@@ -95,9 +95,9 @@ def JsonTest():
     # }
     # tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     # a = requests.post(tofind, json=j)
-    command = "scrapy runspider linkscraper.py -o news1.csv -t csv"
+    command = "scrapy runspider linkscraper.py"
     return_code = os.system(command)
-    if return_code == 1:
+    if return_code == 0:
         return "Success"
     else:
         return "Failure: check logs for more details."
@@ -161,8 +161,8 @@ def GetUrl():
         return render_template('layout.html', message="No documents found.")
 
 # The method that analyzes URLs from the CSV file - should be run automatically
-@app.route('/scrape')
-def Scrape():
+@app.route('/jsontest')
+def JSONtest():
     # # Check that limit not surpassed
     # al = alchemy_calls_left(api_key=api_key)
     # if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
