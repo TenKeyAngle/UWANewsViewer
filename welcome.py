@@ -125,11 +125,11 @@ def GetUrl():
     a = requests.post(tofind, json=j)
     a = a.json()
     a = a['docs']
-    if not '_id' in a:
-        return render_template('layout.html', message="No documents found.")
-    else:
+    try:
         doc = database[a[0].get('_id')]
-    return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
+        return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
+    except:
+        return render_template('layout.html', message="No documents found.")
 
 @app.route('/scrape')
 def Scrape():

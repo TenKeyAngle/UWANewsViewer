@@ -23,7 +23,8 @@ def alchemy_calls_left(api_key):
     return calls_left
 
 def getDocDeets(json):
-    html = "<table class='results'>"
+    html =  '<h1 style="margin: 2em 2em 0 2em; text-align: center">Detailed View</h1>'
+    html +="<table class='results'>"
     if 'title' in json:
         html+= "<tr><td colspan='3' id='title'>{}</td></tr>".format(str(json['title']))
     if 'url' in json:
@@ -67,10 +68,11 @@ def getDocDeets(json):
     return html
 
 def getSearchResults(json):
-    html = "<table class='results'>"
+    html =  '<h1 style="margin: 2em 2em 0 2em; text-align: center">Results View</h1>'
+    html += "<table class='results' style='margin-top: 0'>"
     for item in json:
         html += "<tr><td>{0}</td></tr>".format(item['title'])
-        html += "<tr><td>{0}</td></tr>".format(item['url'])
+        html += "<tr style='margin-bottom:1em'><td>{0}</td></tr>".format(item['url'])
     html += "</table>"
     return html
 
