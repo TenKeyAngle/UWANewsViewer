@@ -72,7 +72,7 @@ def getSearchResults(json):
     html += "<table class='results' style='margin-top: 0'>"
     for item in json:
         html += "<tr><td>{0}</td></tr>".format(item['title'])
-        html += "<tr style='margin-bottom:1em'><td>{0}</td></tr>".format(item['url'])
+        html += "<tr style='margin-bottom:2em'><td><a href='{0}'>{1}</a></td></tr>".format(item['url'], item['url'])
     html += "</table>"
     return html
 
