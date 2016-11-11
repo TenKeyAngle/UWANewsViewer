@@ -279,12 +279,12 @@ def AdvancedSearch():
         if form.validate() == False:
             return render_template('advancedsearch.html', form=form)
         else:
-            return redirect(url_for('Advanced'), request=request)
+            return redirect(url_for('Advanced'))
     return render_template('advancedsearch.html', form=form)
 
 # Process data from the advanced search
 @app.route('/advanced', methods=['GET', 'POST'])
-def Advanced(request):
+def Advanced():
     url = request.form.get("text")
     j = json.loads(url)
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
