@@ -52,16 +52,16 @@ def getDocDeets(json):
         for concept in concepts:
             html += '<tr><td><a href="{0}">'.format(url_for('SearchDB', word=concept['text']))
             html += concept['text']
-            html += '</td><td colspan="2">'
+            html += '</a></td><td colspan="2">'
             html += concept['relevance']
-            html += '</a></td></tr>'
+            html += '</td></tr>'
     if 'keywords' in json:
         keywords = json['keywords']
         html += "<tr><td colspan='3' id='concepts'>"
         for keyword in keywords:
-            html += '<tr><td>'
+            html += '<tr><td><a href="{0}">'.format(url_for('SearchDB', word=keyword['text']))
             html += keyword['text']
-            html += '</td><td colspan="2">'
+            html += '</a></td><td colspan="2">'
             html += keyword['relevance']
             html += '</td></tr>'
     html += "</table>"
