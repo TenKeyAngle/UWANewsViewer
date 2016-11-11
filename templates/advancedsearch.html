@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
 <form method="GET" style="width:100%; height: 3em;" action="{{ url_for('AdvancedSearch') }}">
-    {{ form.text  }} <input type="submit" value="Go">
+    {{ form.text(size=40)  }} <input type="submit" value="Go">
 </form>
 {% endblock %}

@@ -1,13 +1,8 @@
 import wtforms
+from flask import url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, validators
-from wtforms.validators import DataRequired
-import json
-import csv
-import pygal
-from pygal.style import BlueStyle
 import requests
-import operator
 
 # Helper methods and classes for the main application
 
@@ -56,8 +51,17 @@ def getDocDeets(json):
         for concept in concepts:
             html += '<tr><td>'
             html += concept['text']
-            html += '</td><td colspan="2">'
+            html += '</td><td colspan="2"><a href="{0}">'.format(url_for('SearchDB', word=concept['relevance']))
             html += concept['relevance']
+            html += '</a></td></tr>'
+    if 'keywords' in json:
+        keywords = json['keywords']
+        html += "<tr><td colspan='3' id='concepts'>"
+        for keyword in keywords:
+            html += '<tr><td>'
+            html += keyword['text']
+            html += '</td><td colspan="2">'
+            html += keyword['relevance']
             html += '</td></tr>'
     html += "</table>"
     return html
