@@ -301,7 +301,7 @@ def Advanced():
         tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
         a = requests.post(tofind, json=j)
         a = a.json()
-        return a
+        return jsonify(a)
     except Exception as ex:
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
