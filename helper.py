@@ -1,6 +1,6 @@
 import wtforms
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators
+from wtforms import StringField, TextAreaField, validators
 from wtforms.validators import DataRequired
 import json
 import csv
@@ -13,6 +13,9 @@ import operator
 
 class LinkForm(FlaskForm):
     name = StringField('Search by News URL', validators=[validators.input_required()], default='Search by URL')
+
+class JForm(FlaskForm):
+    text = TextAreaField('Search by JSON', validators=[validators.input_required()], default='Search by JSON')
 
 # Function to determine how many AlchemyAPI calls are left
 # Gotten from https://gist.github.com/ianozsvald/4464247

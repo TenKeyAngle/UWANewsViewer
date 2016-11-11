@@ -168,6 +168,7 @@ li, .navthings {
 
 li a, .navthings {
     background-color: black;
+    width: 33%;
     text-decoration: none;
 }
 

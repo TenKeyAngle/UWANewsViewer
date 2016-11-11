@@ -22,7 +22,7 @@ import csv
 import operator
 import pygal
 import helper
-from helper import LinkForm, alchemy_calls_left, getDocDeets
+from helper import LinkForm, alchemy_calls_left, getDocDeets, JForm
 from pygal.style import DarkSolarizedStyle
 from watson_developer_cloud import AlchemyLanguageV1
 from flask import Flask, jsonify, url_for, request, render_template, redirect, Markup
@@ -224,6 +224,26 @@ def MostRelevant():
         template = "An exception of type {0} occured. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         return "2: " + message
+
+@app.route('/advancedsearch')
+def AdvancedSearch():
+    form = JForm(request.args, csrf_enabled=False)
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('advancedsearch.html', form=form)
+        else:
+            return redirect(url_for('GetUrl'))
+    return render_template('advancedsearch.html', form=form)
+
+@app.route('/advanced')
+def Advanced():
+    url = request.args.get("text")
+    j = json.loads(url)
+    tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
+    a = requests.post(tofind, json=j)
+    a = a.json()
+    return a
+    # a = a['docs'][0]
 
 @app.route('/testdb')
 def getHTML():
