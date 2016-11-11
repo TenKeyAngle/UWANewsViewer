@@ -21,7 +21,7 @@ This project can also be accessed (in the au-syd region) through the Bluemix Das
  through the app, and is part of the official Bluemix DevOps pipeline - pushing changes to it will update the app
  code, and as such is the quickest way to deploy changes to the app.
 
- A GitHub clone is available at .
+ A GitHub clone is available at https://github.com/TenKeyAngle/UWANewsViewer.
 
 Note: this project also uses a Cloudant database, which is bound to the app. If access is needed, or a copy of the database is required, the credentials are:
 
@@ -53,7 +53,7 @@ The workflow for this project goes like this:
  - Store this information in a database
  - Present this information in a user-friendly way
  - Allow this data to be queried or searched over
- - 
+
 ### Non-Functional Requirements
  - Scalability: the database must be able to handle a large amount of data
  - Availability: the database must retrieve data quickly, to reduce user wait

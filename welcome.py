@@ -278,7 +278,7 @@ def MostRelevant():
         return "2: " + message
 
 # Advanced search, where users put in JSON
-@app.route('/advancedsearch', methods=['POST'])
+@app.route('/advancedsearch')
 def AdvancedSearch():
     form = JForm(request.form, csrf_enabled=False)
     if request.method == 'POST':
@@ -289,7 +289,7 @@ def AdvancedSearch():
     return render_template('advancedsearch.html', form=form)
 
 # Process data from the advanced search
-@app.route('/advanced')
+@app.route('/advanced', methods=['POST'])
 def Advanced(request):
     url = request.form.get("text")
     j = json.loads(url)
