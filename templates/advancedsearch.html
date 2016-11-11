@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
 <div style="margin-left: 3em;">
+    <p> Note: these queries should be in Cloudant query format.</p>
+    <p> Please read this <a href="https://cloudant.com/using-cloudant-query-tutorial/">Cloudant Query Tutorial</a> before proceeding.</p>
     <form method="post" style="width:100%; height: 3em;" action="{{ url_for('Advanced') }}">
         {{ form.text(class_="query")  }} <input type="submit" value="Go">
     </form>
