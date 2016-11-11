@@ -119,8 +119,11 @@ def GetUrl():
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
     a = a.json()
-    a = a['docs'][0]
-    doc = database[a.get('_id')]
+    a = a['docs']
+    if len(a) > 0:
+        return render_template('layout.html', message="No documents found.")
+    else:
+        doc = database[a.get('_id')]
     return render_template('layout.html', message=Markup(getDocDeets(json=doc)))
 
 @app.route('/scrape')
@@ -227,7 +230,7 @@ def MostRelevant():
 
 @app.route('/advancedsearch')
 def AdvancedSearch():
-    form = JForm(request.POST, csrf_enabled=False)
+    form = JForm(request.form, csrf_enabled=False)
     if request.method == 'POST':
         if form.validate() == False:
             return render_template('advancedsearch.html', form=form)

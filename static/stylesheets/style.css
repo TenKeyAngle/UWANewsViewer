@@ -170,7 +170,7 @@ li, .navthings {
     float: left;
 }
 
-li a, .navthings {
+li a, .navlinks {
     background-color: black;
     display: block;
     text-decoration: none;
