@@ -1,9 +1,5 @@
-from time import sleep
-
 import requests
-import sys
 from cloudant import Cloudant
-from scrapy import crawler
 from scrapy.exceptions import DropItem, CloseSpider
 from watson_developer_cloud import AlchemyLanguageV1
 
