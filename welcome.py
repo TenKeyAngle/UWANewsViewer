@@ -251,29 +251,18 @@ def Advanced():
 @app.route('/testdb')
 def getHTML():
     html = """
-                <html>
-                   <head>
-                     <title>Relevance Chart</title>
-                     <meta charset="utf-8">
-                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                     <meta name="viewport" content="width=device-width, initial-scale=1">
-                     <link rel="stylesheet" href="static/stylesheets/style.css">
-                   </head>
-                      <body>
-                      	<div class='rightHalf'>
-                        <figure>
-                         <embed type="image/svg+xml" src="{0}" />
-                         </figure>
-                         </div>
-                         <div class='leftHalf'>
-                         <figure>
-                         <embed type="image/svg+xml" src="{1}" />
-                         </figure>
-                         </div>
-                     </body>
-                </html>
+                <div class='rightHalf'>
+                <figure>
+                 <embed type="image/svg+xml" src="{0}" />
+                 </figure>
+                 </div>
+                 <div class='leftHalf'>
+                 <figure>
+                 <embed type="image/svg+xml" src="{1}" />
+                 </figure>
+                 </div>
                 """.format(url_for('MostRelevant'), url_for('GetEmotions'))
-    return html
+    return render_template('layout.html', message=Markup(html))
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
