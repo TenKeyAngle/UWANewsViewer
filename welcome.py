@@ -84,7 +84,9 @@ def JsonTest():
     }
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
-    return a.text
+    command = "scrapy runspider linkscraper.py -o news1.csv -t csv"
+    return_code = os.system(command)
+    return return_code
     
 @app.route('/keyword/<word>')
 def SearchDB(word):
