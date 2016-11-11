@@ -1,5 +1,6 @@
 import requests
 from cloudant import Cloudant
+from scrapy import crawler
 from scrapy.exceptions import DropItem, CloseSpider
 from watson_developer_cloud import AlchemyLanguageV1
 
@@ -26,7 +27,9 @@ class URLPipeline(object):
         al = alchemy_calls_left(api_key=api_key)
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
             # If limit surpassed, return a string letting user know
-            raise CloseSpider('AlchemyAPI calls depleted for today: consumed {0}'.format(al['consumedDailyTransactions']))
+            str = 'AlchemyAPI calls depleted for today: consumed.{}'.format(al['consumedDailyTransactions'])
+            crawler._signal_shutdown(9,0)
+            raise CloseSpider(str)
         if not item['url'] == None:
             # If item already in database, ignore it - if not, add analysis results to database
             if not item['url'] in self.t:
