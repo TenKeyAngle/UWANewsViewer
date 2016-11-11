@@ -141,7 +141,7 @@ def SearchDB(word):
 def GetUrl():
     url = request.args.get("name")
     if not url[:4] == "http":
-        redirect(url_for('SearchDB', word=url))
+        return redirect(url_for('SearchDB', word=url))
     j = {
         "selector": {
             "url": url
