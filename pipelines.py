@@ -1,6 +1,7 @@
 from time import sleep
 
 import requests
+import sys
 from cloudant import Cloudant
 from scrapy import crawler
 from scrapy.exceptions import DropItem, CloseSpider
@@ -30,9 +31,8 @@ class URLPipeline(object):
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
             # If limit surpassed, return a string letting user know
             str = 'AlchemyAPI calls depleted for today: consumed.{}'.format(al['consumedDailyTransactions'])
-            crawler.signal_shutdown(9,0)
             crawler.engine.close_spider(spider, 'AlchemyAPI used too much')
-            sleep(60)
+            sys.exit()
             raise CloseSpider(str)
         if not item['url'] == None:
             # If item already in database, ignore it - if not, add analysis results to database
