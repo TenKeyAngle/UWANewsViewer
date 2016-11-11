@@ -41,6 +41,8 @@ http://21331893.au-syd.mybluemix.net/scrape, which adds data to the database. In
 database, either schedule a similar call or go manually to the page. (Note: if the allocated amount of calls per day
 is hit, an error is thrown. That is expected behavior, and should not be cause for alarm).
 
+From the Bluemix Dashboard, or from the CloudFoundtry Command Line Interface, logs should be read to monitor app behavior.
+
 The workflow for this project goes like this:
 * Data is scraped from news.uwa.edu.au: links and article titles are put into items/news.csv. Note: this can take a few minutes.
 * When http://21331893.au-syd.mybluemix.net/scrape is accessed, usually by an automated process, data from the CSV is
