@@ -42,13 +42,17 @@ database, either schedule a similar call or go manually to the page. (Note: if t
 is hit, an error is thrown. That is expected behavior, and should not be cause for alarm).
 
 The workflow for this project goes like this:
-* Data is scraped from news.uwa.edu.au: links and article titles are put into items/news.csv
+* Data is scraped from news.uwa.edu.au: links and article titles are put into items/news.csv. Note: this can take a few minutes.
 * When http://21331893.au-syd.mybluemix.net/scrape is accessed, usually by an automated process, data from the CSV is
  read, and the program calls AlchemyLanguage to analyze each article and put the document into the database.
-* The users can then data from the user interface, which queries the database, or by accessing the database directly
+* The users can then data from the user interface, which queries the database, or by accessing the database directly.
 
 ## Requirements
 ### Functional Requirements
+ - Analyze, using AlchemyLanguage, UWA's press releases
+ - Store this information in a database
+ - Present this information in a user-friendly way
+ - Allow this data to be queried or searched over
  - 
 ### Non-Functional Requirements
  - Scalability: the database must be able to handle a large amount of data
@@ -63,5 +67,5 @@ The workflow for this project goes like this:
 - [Flask Tutorial](http://flask.pocoo.org/docs/0.11/tutorial/)
 - [Pygal Tutorial](http://www.pygal.org/en/stable/documentation/first_steps.html)
 - [Scrapy Tutorial](https://doc.scrapy.org/en/latest/intro/tutorial.html)
-- CloudFoundry Sample Python/Flask app
+- CloudFoundry Sample Python/Flask app (gotten from creating a new Python web app)
 - [Flask Bluemix HelloWorld App](https://www.ibm.com/blogs/bluemix/2015/03/simple-hello-world-python-app-using-flask/)

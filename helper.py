@@ -7,9 +7,13 @@ import csv
 
 # Helper methods and classes for the main application
 
-class LinkForm(FlaskForm):
-    name = StringField('Search by News URL', validators=[validators.input_required()], default='     Search by URL')
+# Forms used in the application
 
+# Form for searching by URL and by keywords
+class LinkForm(FlaskForm):
+    name = StringField('Search News', validators=[validators.input_required()], default='     Search by URL')
+
+# Form search for JSON
 class JForm(FlaskForm):
     text = TextAreaField('Search by JSON', validators=[validators.input_required()], default='       Search by JSON')
 
@@ -23,6 +27,7 @@ def alchemy_calls_left(api_key):
     calls_left = response.json()
     return calls_left
 
+# Formats the details for one document - prints out emotions, concepts and keywords
 def getDocDeets(json):
     html =  '<h1 style="margin: 2em 2em 0 2em; text-align: center">Detailed View</h1>'
     html +="<table class='results'>"
@@ -68,6 +73,7 @@ def getDocDeets(json):
     html += "</table>"
     return html
 
+# Lays out search results - prints link and title
 def getSearchResults(json):
     html =  '<h1 style="margin: 2em 2em 0 2em; text-align: center">Results View</h1>'
     html += "<table class='results' style='margin-top: 0'>"
@@ -77,6 +83,7 @@ def getSearchResults(json):
     html += "</table>"
     return html
 
+# cleans the CSV file from the scraper
 def cleanCSV():
     f = open('items/news.csv', 'r+')
     output = open('items/news1.csv', 'w')

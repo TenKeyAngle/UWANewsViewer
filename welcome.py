@@ -140,6 +140,8 @@ def SearchDB(word):
 @app.route('/geturl')
 def GetUrl():
     url = request.args.get("name")
+    if not url[:4] == "http":
+        redirect(url_for('SearchDB', word=url))
     j = {
         "selector": {
             "url": url
@@ -202,15 +204,18 @@ def Scrape():
         t.append(item.get('value'))
     return jsonify(results=t)
 
+# Check how many calls left on AlchemyAPI
 @app.route('/apikey')
 def apiKey():
     return jsonify(alchemy_calls_left(api_key=api_key))
 
+# Create a database in the Cloudant app
 @app.route('/createdb/<db>')
 def create_db(db):
     requests.put( cl_url + '/' + db, auth=auth )
     return 'Database %s created.' % db
 
+# Get a pie chart of the total emotional analysis results from the entire database
 @app.route('/getemotions.svg')
 def GetEmotions():
     end_point = '{0}/{1}'.format(cl_url, 'uwanews/_design/des/_view/getemotions')
@@ -222,6 +227,7 @@ def GetEmotions():
     t['joy'] = 0
     t['sadness'] = 0
     t['anger'] = 0
+    # Add all the emotions
     for item1 in r.get('rows'):
         emotion = item1.get('value')
         t['disgust'] += float(emotion.get('disgust'))
@@ -240,6 +246,7 @@ def GetEmotions():
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
 
+# Get all the most relevant topics, and graph them
 @app.route('/mostrelevant.svg')
 def MostRelevant():
     try:
@@ -258,6 +265,7 @@ def MostRelevant():
         message = template.format(type(ex).__name__, ex.args)
         return "1: " + message
     try:
+        # Add the relevance and the topics
         relevance =  [float(t[key]) for key in t]
         labels = ['%s' % str(i) for i in t]
         bar_chart =  pygal.Bar(title=title, style=s)
@@ -269,6 +277,7 @@ def MostRelevant():
         message = template.format(type(ex).__name__, ex.args)
         return "2: " + message
 
+# Advanced search, where users put in JSON
 @app.route('/advancedsearch')
 def AdvancedSearch():
     form = JForm(request.form, csrf_enabled=False)
@@ -279,6 +288,7 @@ def AdvancedSearch():
             return redirect(url_for('Advanced'), request=request)
     return render_template('advancedsearch.html', form=form)
 
+# Process data from the advanced search
 @app.route('/advanced')
 def Advanced(request):
     url = request.form.get("text")
@@ -289,7 +299,8 @@ def Advanced(request):
     return a
     # a = a['docs'][0]
 
-@app.route('/testdb')
+# display results of all the documents
+@app.route('/getstats')
 def getHTML():
     html = """
                 <div class='rightHalf'>
@@ -304,6 +315,8 @@ def getHTML():
                  </div>
                 """.format(url_for('MostRelevant'), url_for('GetEmotions'))
     return render_template('layout.html', message=Markup(html))
+
+# Run the app
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port), debug=True)
