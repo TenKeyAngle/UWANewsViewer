@@ -90,6 +90,11 @@ h1 {
    width: 80%;
 }
 
+.query {
+   width: 80%;
+   height: 5em;
+}
+
 #title, #url, #date, #emotes, #concepts {
     width: 100%;
     text-align: center;
