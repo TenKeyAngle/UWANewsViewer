@@ -170,8 +170,8 @@ li, .navthings {
 
 li a, .navthings {
     background-color: black;
-    width: 33%;
     display: block;
+    float: left;
     text-decoration: none;
 }
 

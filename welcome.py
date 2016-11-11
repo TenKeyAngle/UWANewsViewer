@@ -227,7 +227,7 @@ def MostRelevant():
 
 @app.route('/advancedsearch')
 def AdvancedSearch():
-    form = JForm(request.args, csrf_enabled=False)
+    form = JForm(request.POST, csrf_enabled=False)
     if request.method == 'POST':
         if form.validate() == False:
             return render_template('advancedsearch.html', form=form)
@@ -237,7 +237,7 @@ def AdvancedSearch():
 
 @app.route('/advanced')
 def Advanced():
-    url = request.args.get("text")
+    url = request.form.get("text")
     j = json.loads(url)
     tofind = "{0}/{1}/_find/".format(cl_url, "uwanews")
     a = requests.post(tofind, json=j)
