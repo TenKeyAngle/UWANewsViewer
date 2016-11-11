@@ -165,13 +165,14 @@ li, .navthings {
     font-color: white;
     decoration: none;
     display: block;
-    color: black;
+    color: white;
+    width: 33%;
+    float: left;
 }
 
 li a, .navthings {
     background-color: black;
     display: block;
-    float: left;
     text-decoration: none;
 }
 
