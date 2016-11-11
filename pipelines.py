@@ -1,6 +1,7 @@
 import requests
 from cloudant import Cloudant
 from flask import jsonify
+from scrapy.exceptions import DropItem, CloseSpider
 from watson_developer_cloud import AlchemyLanguageV1
 
 from helper import alchemy_calls_left
@@ -26,12 +27,16 @@ class URLPipeline(object):
         al = alchemy_calls_left(api_key=api_key)
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:
             # If limit surpassed, return a string letting user know
-            return jsonify(al)
+            raise CloseSpider('AlchemyAPI calls depleted for today: consumed {0}'.format(al['consumedDailyTransactions']))
         if not item['url'] == None:
             # If item already in database, ignore it - if not, add analysis results to database
             if not item['url'] in self.t:
                 data = self.alchemy.combined(url=item, extract=combined_operations)
                 doc = self.database.create_document(data)
                 if not doc.exists():
-                    return "Doc not created: " + jsonify(results=data)
+                    print("Doc not created: {0}".format(item['url']))
             return item
+        else:
+            raise DropItem("Url is " % item['url'])
+
+

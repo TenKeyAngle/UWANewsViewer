@@ -80,14 +80,15 @@ h1 {
   border-color: #00aed1;
   font-color: #C0C0C0;
   font-opacity: 0.8;
+  font-size: 1.5em;
+  padding: 1em;
 }
 
 .searchbarbutton {
-   border-radius-top-right: 3em;
-   border-radius-bottom-right: 3em;
+   border-radius: 3em;
    background-color: #00aed1;
    height: 3em;
-   width: 100%;
+   width: 80%;
 }
 
 #title, #url, #date, #emotes, #concepts {
