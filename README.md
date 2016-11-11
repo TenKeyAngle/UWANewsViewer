@@ -20,6 +20,7 @@ This project can also be accessed (in the au-syd region) through the Bluemix Das
  The original git repository is available at https://hub.jazz.net/git/tenkeyangle/21331893 - it can be accessed
  through the app, and is part of the official Bluemix DevOps pipeline - pushing changes to it will update the app
  code, and as such is the quickest way to deploy changes to the app.
+
  A GitHub clone is available at .
 
 Note: this project also uses a Cloudant database, which is bound to the app. If access is needed, or a copy of the database is required, the credentials are:
@@ -33,8 +34,7 @@ Note: this project also uses a Cloudant database, which is bound to the app. If 
 An API key for AlchemyAPI is also needed. The free key currently used is given above. However, if another key is
 needed, going to the Bluemix Dashboard-->21331893-->Runtime-->Environment Variables will let you see the environment
 variables used, and change the alchemyKey one to the key you have. In that view, you can also see the details of the
-services
-currently bound to the app in VCAP_SERVICES, and potentially bind an AlchemyAPI service as well.
+services currently bound to the app in VCAP_SERVICES, and potentially bind an AlchemyAPI service as well.
 
 ## Requirements
 ### Functional Requirements

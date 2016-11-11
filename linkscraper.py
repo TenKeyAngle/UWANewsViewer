@@ -22,9 +22,9 @@ class NewsSpider(scrapy.Spider):
         #     f.close()
         for title in response.css('h3'):
             current = title.css('a ::attr(href)').extract_first()
-            if current == last:
-                print(current)
-                return
+            #if current == last:
+             #   print(current)
+             #   return
             yield({'url' : current,
                    'title': title.css('a ::text').extract_first()})
 
