@@ -23,6 +23,7 @@ class URLPipeline(object):
             self.t.append(item.get('value'))
 
     def process_item(self, item, spider):
+        raise CloseSpider("test")
         combined_operations = ['title', 'authors', 'pub-date', 'entities', 'keywords',  'taxonomy', 'relations', 'concepts', 'doc-emotion']
         al = alchemy_calls_left(api_key=api_key)
         if not al['consumedDailyTransactions'] < al['dailyTransactionLimit']:

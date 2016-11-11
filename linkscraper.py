@@ -5,9 +5,11 @@ import sys
 from scrapy.crawler import CrawlerProcess
 
 class NewsSpider(scrapy.Spider):
-    pipeline = set([
-        URLPipeline
-    ])
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            '21331893.URLPipeline': 400
+        }
+    }
     name = 'newsspider'
     start_urls = ['http://www.news.uwa.edu.au/']
     list = []
