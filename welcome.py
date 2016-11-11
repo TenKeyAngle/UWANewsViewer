@@ -289,7 +289,7 @@ def AdvancedSearch():
     return render_template('advancedsearch.html', form=form)
 
 # Process data from the advanced search
-@app.route('/advanced', methods=['POST'])
+@app.route('/advanced', methods=['GET', 'POST'])
 def Advanced(request):
     url = request.form.get("text")
     j = json.loads(url)
