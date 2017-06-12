@@ -34,15 +34,13 @@ from cloudant.document import Document
 app = Flask(__name__)
 
 #Connect required services
-api_key='6026adae6314a2a74df3c7a23a8e99d7f6e20c28'
+api_key=json.loads(os.getenv("VCAP_SERVICES"))['alchemy']
 alchemy = AlchemyLanguageV1(api_key=api_key)
 vcap = json.loads(os.getenv("VCAP_SERVICES"))['cloudantNoSQLDB']
 
 cl_username = vcap[0]['credentials']['username']
 cl_password = vcap[0]['credentials']['password']
 cl_url         = vcap[0]['credentials']['url']
-#cl_url  = "https://1a818337-f029-449a-8a03-d34f30877d1d-bluemix:b20bcbf26bac5fa4ed56df09b07755ac1d8ccf6e3d3ad1177902957c1ca192c0@1a818337-f029-449a-8a03-d34f30877d1d-bluemix.cloudant.com"
-
 auth = ( cl_username, cl_password )
 
 # Modifies Style for Graphs
